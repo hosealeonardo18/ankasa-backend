@@ -51,3 +51,12 @@ create table city(
     country varchar(20) not null,
     image varchar default('city.png')
 );
+
+create table airlines(
+    id varchar(36) not null primary key,
+    name varchar(20) not null,
+    image varchar not null,
+    website varchar,
+    email varchar(60),
+    phone_number varchar(16)
+);
