@@ -36,13 +36,11 @@ create table credit_card(
 );
 
 create table chat(
-    id varchar(36) not null primary key,
-    sender varchar(36) references users on update cascade on delete cascade,
-    foreign key (sender) references users(id),
-    receiver varchar(36) references admin on update cascade on delete cascade,
-    foreign key (receiver) references admin(id),
-    message text,
-    date_time date
+    message_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    sender VARCHAR NOT NULL,
+    receiver VARCHAR NOT NULL,
+    message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 create table city(
@@ -58,90 +56,5 @@ create table airlines(
     image varchar not null,
     website varchar,
     email varchar(60),
-    phone_number varchar(16),
-    availability boolean default(true)
-);
-
-create table flights(
-    id varchar(36) not null primary key,
-    id_airline varchar(36) references airlines on update cascade on delete cascade,
-    foreign key (id_airline) references airlines(id),
-    city_departure varchar(40) not null,
-    city_departure_code varchar(4) not null,
-    city_destination varchar(40) not null,
-    city_destination_code varchar(4) not null,
-    time_departure time not null,
-    time_arrival time not null,
-    transit_count int not null,
-    stock int not null,
-    price numeric not null,
-    luggage boolean not null,
-    inflight_meal boolean not null,
-    refundable boolean not null,
-    reschedule boolean not null,
-    code varchar(6) not null,
-    terminal varchar(2) not null,
-    gate varchar(3) not null,
-    created_at timestamp,
-    updated_at timestamp
-);
-
-create table reviews(
-    id varchar(36) not null primary key,
-    id_user varchar(36) references users on update cascade on delete cascade,
-    foreign key (id_user) references users(id),
-    id_flight varchar(36) references flights on update cascade on delete cascade,
-    foreign key (id_flight) references flights(id),
-    rating int not null,
-    title varchar(30) not null,
-    description text,
-    created_at timestamp,
-    updated_at timestamp
-);
-
-create table booking(
-    id varchar(36) not null primary key,
-    id_user varchar(36) references users on update cascade on delete cascade,
-    foreign key (id_user) references users(id),
-    id_flight varchar(36) references flights on update cascade on delete cascade,
-    foreign key (id_flight) references flights(id),
-    status int not null,
-    class_type int not null,
-    created_at timestamp
-);
-
-create type name_title as enum(
-    'Mr.', 
-    'Ms.'
-);
-
-create type nationality as enum(
-    'Warga Negara Indonesia (WNI)', 
-    'Warga Negara Asing (WNA)'
-);
-
-create type passenger_type as enum(
-    'Adult', 
-    'Children'
-);
-
-create table passengers(
-    id varchar(36) not null primary key,
-    id_booking varchar(36) references booking on update cascade on delete cascade,
-    foreign key (id_booking) references booking(id),
-    title name_title not null,
-    fullname varchar(40) not null,
-    nationality nationality not null,
-    passenger_type passenger_type not null,
-    seat varchar(6)
-);
-
-create table notifications(
-    id varchar(36) not null primary key,
-    id_user varchar(36) references users on update cascade on delete cascade,
-    foreign key (id_user) references users(id),
-    title varchar(20) not null,
-    description text not null,
-    read_status boolean default(false),
-    created_at timestamp
+    phone_number varchar(16)
 );
