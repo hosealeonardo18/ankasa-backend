@@ -17,24 +17,26 @@ const insertUser = async (data) => {
 
 const editProfile = (
   fullname,
+  email,
   password,
   image,
+  phone_number,
   city,
   address,
-  phone_number,
   zipcode,
   id
 ) => {
   return new Promise((resolve, reject) => {
     const query = {
-      text: "UPDATE users SET fullname=$1, password=$2, image=$3, city=$4, address=$5, phone_number=$6, zipcode=$7 WHERE id=$8",
+      text: "UPDATE users SET fullname=$1, email=$2, password=$3, image=$4, phone_number=$5, city=$6, address=$7, zipcode=$8 WHERE id=$9",
       values: [
         fullname,
+        email,
         password,
         image,
+        phone_number,
         city,
         address,
-        phone_number,
         zipcode,
         id,
       ],
