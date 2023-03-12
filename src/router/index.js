@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-
 const workerRouter = require("./worker");
 const skillController = require("./skill");
 const portfolioController = require("./portfolio");
@@ -14,5 +13,10 @@ router.use("/v1/portfolio", portfolioController);
 router.use("/v1/work-experience", workExperienceController);
 router.use("/v1/recruiter", recruiterRouter);
 router.use("/v1/hire", hireRouter);
+
+/////////////////////////////////////////////////////////////////
+//user
+const userRouter = require("./user.router");
+router.use("/v1/user", userRouter);
 
 module.exports = router;
