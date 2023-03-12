@@ -8,7 +8,7 @@ const upload = require('../middleware/upload');
 router.get("/",  airlinesController.getAllAirlines);
 router.post("/", upload.single('image'), airlinesController.createAirlines);
 router.get("/:id", airlinesController.getDetailAirlines);
-router.put("/:id", airlinesController.updateAirlines);
+router.put("/:id", upload.single('image'), airlinesController.updateAirlines);
 router.delete("/:id", airlinesController.deleteAirlines);
 
 module.exports = router;
