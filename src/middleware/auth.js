@@ -1,83 +1,28 @@
 const jwt = require("jsonwebtoken");
-const commonHelper = require("../helper/common");
+const createError = require("http-errors");
 
-//Require bearer token (user is logged in) before accessing next route
-const protect = (req, res, next) => {
-    try {
-        let token;
-        if (req.headers.authorization) {
-            token = req.headers.authorization.split(" ")[1];
-            let decoded = jwt.verify(token, process.env.SECRET_KEY_JWT);
-            req.payload = decoded;
-            next();
-        } else {
-            commonHelper.response(
-                res,
-                null,
-                401,
-                "Unauthorized, server needed a token"
-            );
-        }
-    } catch (error) {
-        if (error && error.name === "JsonWebTokenError") {
-            commonHelper.response(res, null, 401, "Token invalid");
-        } else if (error && error.name === "TokenExpiredError") {
-            commonHelper.response(res, null, 401, "Token expired");
-        } else {
-            commonHelper.response(res, null, 401, "Token not active");
-        }
-    }
-};
-
-//Ensures id_worker or id_recruiter in payload (login auth token)
-//Is the same compared to id_worker or id_recruiter in params
-//This prevents user modifying data created by other user
-//Usually applied on put or delete request
-const isIdValid = (req, res, next) => {
-    const payload = req.payload;
-    const queryId = req.params.id_recruiter || req.params.id_worker;
-    console.log(`payload id : ${payload}`);
-    console.log(`query id : ${queryId}`);
-    if (payload) {
-        if (payload.id == queryId) {
-            next();
-        } else {
-            commonHelper.response(res, null, 403,
-                "Modifying data created by other user is not allowed");
-        }
+const verifyToken = async (req, res, next) => {
+  try {
+    let token;
+    if (req.headers.authorization) {
+      token = req.headers.authorization.split(" ")[1];
+      let decoded = await jwt.verify(token, process.env.SECRET_KEY_JWT);
+      req.payload = decoded;
+      next();
     } else {
-        commonHelper.response(res, null, 403, "User not found");
+      return res.status(401).json({
+        message: "Unauthorized, Please provide valid token",
+      });
     }
-};
-
-//Checks if role in payload (login auth token) is recruiter
-const isAdmin = (req, res, next) => {
-    const payload = req.payload;
-    if (payload) {
-        if (payload.role === "recruiter") {
-            next();
-        } else {
-            commonHelper.response(res, null, 403,
-                "Unauthorized, please login as admin");
-        }
+  } catch (error) {
+    if (error && error.name === "JsonWebTokenError") {
+      return next(new createError(401, "Token invalid"));
+    } else if (error && error.name === "TokenExpiredError") {
+      return next(new createError(401, "Token expired"));
     } else {
-        commonHelper.response(res, null, 403, "Admin not found");
+      return next(new createError(401, "Token not active"));
     }
+  }
 };
 
-//Checks if role in payload (login auth token) is worker
-const isUser = (req, res, next) => {
-    const payload = req.payload;
-    if (payload) {
-        if (payload.role === "worker") {
-            next();
-        } else {
-            commonHelper.response(res, null, 403,
-                "Unauthorized, please login as user");
-        }
-    } else {
-        commonHelper.response(res, null, 403, "User not found");
-    }
-};
-
-module.exports = { protect, isIdValid, isRecruiter, isWorker };
+module.exports = { verifyToken };
