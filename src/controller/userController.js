@@ -71,9 +71,9 @@ const userController = {
       const refreshToken = req.body.refreshToken;
       const decoded = jwt.verify(refreshToken, process.env.SECRET_KEY_JWT);
       let payload = {
-        email: user.email,
-        id: user.id, // add the user ID to the payload
-        role: "user" // role for middleware check
+        email: decoded.email,
+        id: decoded.id, // add the user ID to the payload
+        role: decoded.role // role for middleware check
       };
       const result = {
         token: authHelper.generateToken(payload),
