@@ -9,13 +9,13 @@ const selectDetailAirlines = (id) =>{
 };
 
 const insertAirlines = (data) => {
-    const { id, name, logo, date_created } = data;
-    return Pool.query(`INSERT INTO airlines(id,name,logo,date_created) VALUES('${id}','${name}','${logo}','${date_created}')`);
+    const { id, name, email, image, website, phone_number, availability } = data;
+    return Pool.query(`INSERT INTO airlines(id,name,email,image,website,phone_number,availability) VALUES('${id}','${name}','${email}','${image}','${website}','${phone_number}','${availability}')`);
 };
 
 const updateAirlines = (data) => {
-    const { id, name, logo, date_created } = data;
-    return Pool.query(`UPDATE airlines SET name='${name}', logo='${logo}', date_created='${date_created}' WHERE id='${id}'`);
+    const { id, name, email, image, website, phone_number, availability } = data;
+    return Pool.query(`UPDATE airlines SET name='${name}', email='${email}', image='${image}', website='${website}', phone_number='${phone_number}', availability='${availability}' WHERE id='${id}'`);
 };
 
 const deleteAirlines = (id) => {
