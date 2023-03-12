@@ -6,8 +6,9 @@ const airlinesController = require('../controller/airlines');
 const upload = require('../middleware/upload');
 
 router.get("/",  airlinesController.getAllAirlines);
-router.post("/", upload.single('image'), airlinesController.createAirlines);
 router.get("/:id", airlinesController.getDetailAirlines);
+router.post("/", upload.single('image'), airlinesController.createAirlines);
+router.post("/:id/availability", airlinesController.airlinesAvailability);
 router.put("/:id", upload.single('image'), airlinesController.updateAirlines);
 router.delete("/:id", airlinesController.deleteAirlines);
 

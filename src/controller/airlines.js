@@ -3,6 +3,7 @@ const {
   selectDetailAirlines,
   insertAirlines,
   updateAirlines,
+  setAirlineAvailability,
   deleteAirlines,
   countData,
   findId,
@@ -55,9 +56,12 @@ const airlinesController = {
     }
   },
   createAirlines: async (req, res) => {
-    const { name, email, website, phone_number, availability } = req.body;
+    let { name, email, website, phone_number, availability } = req.body;
+    if(availability == undefined) {
+      availability = true;
+    }
     const id = uuidv4();
-    const result = await cloudinary.uploader.upload(req.file.path)
+    const result = await cloudinary.uploader.upload(req.file.path);
     const image = result.secure_url;
     const data = { id, name, email, image, website, phone_number, availability };
     console.log(data);
@@ -69,7 +73,12 @@ const airlinesController = {
   },
   updateAirlines: async (req, res) => {
     const id = req.params.id;
-    const { name, email, image, website, phone_number, availability } = req.body;
+    let { name, email, website, phone_number, availability } = req.body;
+    if(availability == undefined) {
+      availability = true;
+    }
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const image = result.secure_url;
     const { rowCount } = await findId(id);
     if (!rowCount) {
         return res.json({
@@ -80,7 +89,24 @@ const airlinesController = {
     updateAirlines(data)
     .then((result) => {
         console.log(result);
-        commonHelper.response(res, result.rows, 200, "Worker updated");
+        commonHelper.response(res, result.rows, 200, "Airline updated");
+      })
+    .catch((err) => res.status(500).json(err));
+  },
+  airlinesAvailability: async (req, res) => {
+    const id = req.params.id;
+    let { availability } = req.body;
+    
+    const { rowCount } = await findId(id);
+    if (!rowCount) {
+        return res.json({
+          Message: "data not found",
+        });
+    }
+    const data = { id, availability }
+    setAirlineAvailability(data)
+    .then((result) => {
+        commonHelper.response(res, result.rows, 200, "Airline status updated");
       })
     .catch((err) => res.status(500).json(err));
   },
