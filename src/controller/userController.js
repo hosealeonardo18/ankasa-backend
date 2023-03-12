@@ -91,7 +91,7 @@ const userController = {
     const userId = req.payload.id;
     const id = req.params.id;
     const { fullname, password } = req.body;
-    let imageProfile;
+    let image;
 
     if (userId !== id) {
       return commonHelper.response(
