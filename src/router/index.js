@@ -13,8 +13,16 @@ router.use("/user", userRouter);
 router.use("/admin", adminRoutes);
 router.use("/message", messageRoutes);
 
-// airlinea
+// airlines
 const airlinesRouter = require("./airlines");
 router.use("/airlines", airlinesRouter);
+
+// city
+const cityRouter = require("./cityRouter");
+router.use("/city", cityRouter);
+
+// credit card
+const creditCardRouter = require("./creditCard");
+router.use("/creditCard", creditCardRouter);
 
 module.exports = router;

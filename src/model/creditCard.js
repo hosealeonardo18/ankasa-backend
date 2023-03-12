@@ -1,21 +1,21 @@
 const Pool = require('../config/db');
 
 const selectAllCredit = (search, sortBY, sort, limit, offset) => {
-    return Pool.query(`SELECT * FROM credit_card WHERE name LIKE '%${search}%' ORDER BY ${sortBY} ${sort} LIMIT ${limit} OFFSET ${offset}`);
+    return Pool.query(`SELECT * FROM credit_card WHERE fullname LIKE '%${search}%' ORDER BY ${sortBY} ${sort} LIMIT ${limit} OFFSET ${offset}`);
 };
 
-const selectDetailCredit = (id) =>{
-    return Pool.query(`SELECT * FROM credit_card WHERE id='${id}'`);
+const selectDetailCredit = (id_user) =>{
+    return Pool.query(`SELECT * FROM credit_card WHERE id_user='${id_user}'`);
 };
 
 const insertCredit = (data) => {
-    const { id, fullname, credit_number, expire, cvv, balance } = data;
-    return Pool.query(`INSERT INTO credit_card(id,fullname,credit_number,expire,cvv,balance) VALUES('${id}','${fullname}','${credit_number}','${expire}','${cvv}','${balance}')`);
+    const { id, fullname, credit_number, expire, cvv, balance, id_user } = data;
+    return Pool.query(`INSERT INTO credit_card(id,fullname,credit_number,expire,cvv,balance,id_user) VALUES('${id}','${fullname}','${credit_number}','${expire}','${cvv}','${balance}','${id_user}')`);
 };
 
 const updateCredit = (data) => {
-    const { id, fullname, credit_number, expire, cvv, balance } = data;
-    return Pool.query(`UPDATE credit_card SET fullname='${fullname}', credit_number='${credit_number}', expire='${expire}', cvv='${cvv}', balance='${balance}' WHERE id='${id}'`);
+    const { id, fullname, credit_number, expire, cvv, balance, id_user } = data;
+    return Pool.query(`UPDATE credit_card SET fullname='${fullname}', credit_number='${credit_number}', expire='${expire}', cvv='${cvv}', balance='${balance}', id_user='${id_user}' WHERE id='${id}'`);
 };
 
 const deleteCredit = (id) => {
@@ -25,6 +25,18 @@ const deleteCredit = (id) => {
 const findId = (id) => {
     return new Promise((resolve, reject) => 
         Pool.query(`SELECT id FROM credit_card WHERE id='${id}'`, (error, result) => {
+            if (!error) {
+                resolve(result)
+            } else {
+                reject(error)
+            }
+        })
+    )
+};
+
+const findIdUser = (id_user) => {
+    return new Promise((resolve, reject) => 
+        Pool.query(`SELECT id FROM credit_card WHERE id_user='${id_user}'`, (error, result) => {
             if (!error) {
                 resolve(result)
             } else {
@@ -45,5 +57,6 @@ module.exports = {
     updateCredit,
     deleteCredit,
     countData,
-    findId
+    findId,
+    findIdUser
 }

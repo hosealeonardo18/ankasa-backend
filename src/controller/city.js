@@ -10,6 +10,7 @@ const {
 
 const commonHelper = require("../helper/common");
 const { v4: uuidv4 } = require("uuid");
+var cloudinary = require("../config/cloudinary");
 
 const cityController = {
     getAllCity: async (req, res) => {
@@ -54,9 +55,11 @@ const cityController = {
         }
     },
     createCity: async (req, res) => {
-        const { name, email, country, image } = req.body;
+        const { name, country } = req.body;
         const id = uuidv4();
-        const data = { id, name, email, country, image };
+        const result = await cloudinary.uploader.upload(req.file.path)
+        const image = result.secure_url;
+        const data = { id, name, country, image };
         insertCity(data)
             .then((result) => {
                 commonHelper.response(res, result.rows, 201, "City created");
@@ -65,14 +68,16 @@ const cityController = {
     },
     updateCity: async (req, res) => {
         const id = req.params.id;
-        const { name, email, country, image } = req.body;
+        const { name, country } = req.body;
+        const result = await cloudinary.uploader.upload(req.file.path)
+        const image = result.secure_url;
         const { rowCount } = await findId(id);
         if (!rowCount) {
             return res.json({
                 Message: "data not found",
             });
         }
-        const data = { id, name, email, country, image };
+        const data = { id, name, country, image };
         updateCity(data)
             .then((result) => {
                 console.log(result);

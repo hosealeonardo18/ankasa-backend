@@ -6,6 +6,7 @@ const {
     deleteCredit,
     countData,
     findId,
+    findIdUser,
 } = require("../model/creditCard");
 
 const commonHelper = require("../helper/common");
@@ -37,14 +38,15 @@ const creditCardController = {
     },
     getDetailCredit: async (req, res) => {
         try {
-            const id = req.params.id;
-            const { rowCount } = await findId(id);
+            const id_user = req.params.id;
+            console.log(id_user);
+            const { rowCount } = await findIdUser(id_user);
             if (!rowCount) {
                 return res.json({
                     Message: "data not found",
                 });
             }
-            selectDetailCredit(id)
+            selectDetailCredit(id_user)
                 .then((result) => {
                     commonHelper.response(res, result.rows, 200, "get data by id success");
                 })
@@ -54,12 +56,12 @@ const creditCardController = {
         }
     },
     createCredit: async (req, res) => {
-        const { fullname, credit_number, cvv, balance } = req.body;
+        const { fullname, credit_number, expire, cvv, balance } = req.body;
         const id = uuidv4();
-        const expire = new Date();
         const id_user = req.payload.id;
         const data = { id, fullname, credit_number, expire, cvv, balance };
         data.id_user = id_user;
+        console.log(data);
         insertCredit(data)
             .then((result) => {
                 commonHelper.response(res, result.rows, 201, "Credit Card created");
@@ -68,7 +70,7 @@ const creditCardController = {
     },
     updateCredit: async (req, res) => {
         const id = req.params.id;
-        const { fullname, credit_number, cvv, balance } = req.body;
+        const { fullname, credit_number, expire, cvv, balance } = req.body;
         const id_user = req.payload.id;
         const { rowCount } = await findId(id);
         if (!rowCount) {
@@ -76,8 +78,9 @@ const creditCardController = {
                 Message: "data not found",
             });
         }
-        const data = { id, fullname, credit_number, cvv, balance };
+        const data = { id, fullname, credit_number, expire, cvv, balance };
         data.id_user = id_user;
+        console.log(data);
         updateCredit(data)
             .then((result) => {
                 console.log(result);
