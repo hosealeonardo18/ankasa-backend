@@ -26,17 +26,19 @@ const selectAllFlights = (data) => {
 };
 
 const selectDetailFlights = (id) => {
-    return Pool.query(`SELECT airlines.name AS "airline", airlines.availability, airlines.image, flights.* FROM flights INNER JOIN airlines ON flights.id_airline = airlines.id WHERE id='${id}'`);
+    return Pool.query(`SELECT airlines.name AS "airline", airlines.availability, airlines.image, flights.* FROM flights INNER JOIN airlines ON flights.id_airline = airlines.id WHERE flights.id='${id}'`);
 };
 
 const insertFlights = (data) => {
-    const { id, id_airline, city_departure, city_departure_code, city_destination, city_destination_code, time_departure, time_arrival, transit_count, stock, price, luggage, inflight_meal, refundable, reschedule, code, terminal, gate, created_at, updated_at } = data;
-    return Pool.query(`INSERT INTO flights VALUES('${id}','${id_airline}','${city_departure}', '${city_departure_code}', '${city_destination}', '${city_destination_code}', '${time_departure}', '${time_arrival}', '${transit_count}', '${stock}', '${price}', '${luggage}', '${inflight_meal}', '${refundable}', '${reschedule}', '${code}', '${terminal}', '${gate}', to_timestamp(${created_at} / 1000.0), to_timestamp(${updated_at} / 1000.0))`);
+    const { id, id_airline, city_departure, city_departure_code, city_destination, city_destination_code, datetime_departure, datetime_arrival, transit_count, flight_trip, flight_class, capacity, price, luggage, inflight_meal, wifi, refundable, reschedule, code, terminal, gate, created_at, updated_at } = data;
+
+    return Pool.query(`INSERT INTO flights VALUES('${id}','${id_airline}','${city_departure}', '${city_departure_code}', '${city_destination}', '${city_destination_code}', to_timestamp(${datetime_departure} / 1000.0), to_timestamp(${datetime_arrival} / 1000.0), '${transit_count}', '${flight_trip}','${flight_class}', '${capacity}', '${price}', '${luggage}', '${inflight_meal}', '${wifi}', '${refundable}', '${reschedule}', '${code}', '${terminal}', '${gate}', to_timestamp(${created_at} / 1000.0), to_timestamp(${updated_at} / 1000.0))`);
 };
 
 const updateFlights = (data) => {
-    const { id, id_airline, city_departure, city_departure_code, city_destination, city_destination_code, time_departure, time_arrival, transit_count, stock, price, luggage, inflight_meal, refundable, reschedule, code, terminal, gate, created_at, updated_at } = data;
-    return Pool.query(`UPDATE flights SET city_departure='${city_departure}', city_departure_code='${city_departure_code}', city_destination='${city_destination}', city_destination_code='${city_destination_code}', time_departure='${time_departure}', time_arrival='${time_arrival}', transit_count='${transit_count}', stock='${stock}', price='${price}', luggage='${luggage}', inflight_meal='${inflight_meal}', refundable='${refundable}', reschedule='${reschedule}', code='${code}', terminal='${terminal}', gate='${gate}', updated_at=to_timestamp(${updated_at} / 1000.0) WHERE id='${id}'`);
+    const { id, id_airline, city_departure, city_departure_code, city_destination, city_destination_code, datetime_departure, datetime_arrival, transit_count, flight_trip, flight_class, capacity, price, luggage, inflight_meal, wifi, refundable, reschedule, code, terminal, gate, created_at, updated_at } = data;
+
+    return Pool.query(`UPDATE flights SET id_airline='${id_airline}', city_departure='${city_departure}', city_departure_code='${city_departure_code}', city_destination='${city_destination}', city_destination_code='${city_destination_code}', datetime_departure=to_timestamp(${datetime_departure} / 1000.0), datetime_arrival=to_timestamp(${datetime_arrival} / 1000.0), transit_count='${transit_count}', flight_trip='${flight_trip}', flight_class='${flight_class}', capacity='${capacity}', price='${price}', luggage='${luggage}', inflight_meal='${inflight_meal}', wifi='${wifi}', refundable='${refundable}', reschedule='${reschedule}', code='${code}', terminal='${terminal}', gate='${gate}', updated_at=to_timestamp(${updated_at} / 1000.0) WHERE id='${id}'`);
 };
 
 const deleteFlights = (id) => {

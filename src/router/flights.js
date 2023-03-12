@@ -8,8 +8,8 @@ const {
 
 router.get("/", flightsController.getAllFlights);
 router.get("/:id", flightsController.getDetailFlights);
-router.post("/", validateLogin, verifyToken, isAdmin, flightsController.createFlights);
-router.put("/:id", validateLogin, verifyToken, isAdmin, flightsController.updateFlights);
-router.delete("/:id", validateLogin, verifyToken, isAdmin, flightsController.deleteFlights);
+router.post("/", flightsController.createFlights);
+router.put("/:id", flightsController.updateFlights);
+router.delete("/:id", flightsController.deleteFlights);
 
 module.exports = router;

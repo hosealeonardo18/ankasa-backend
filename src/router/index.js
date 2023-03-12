@@ -17,7 +17,7 @@ router.use("/flight", flightsRoutes);
 
 // airlines
 const airlinesRouter = require("./airlines");
-router.use("/airlines", airlinesRouter);
+router.use("/airline", airlinesRouter);
 
 // city
 const cityRouter = require("./cityRouter");

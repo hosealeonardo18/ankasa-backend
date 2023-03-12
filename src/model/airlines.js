@@ -18,6 +18,11 @@ const updateAirlines = (data) => {
     return Pool.query(`UPDATE airlines SET name='${name}', email='${email}', image='${image}', website='${website}', phone_number='${phone_number}', availability='${availability}' WHERE id='${id}'`);
 };
 
+const setAirlineAvailability = (data) => {
+    const { id, availability } = data;
+    return Pool.query(`UPDATE airlines SET availability='${availability}' WHERE id='${id}'`);
+};
+
 const deleteAirlines = (id) => {
     return Pool.query(`DELETE FROM airlines WHERE id='${id}'`);
 };
@@ -43,6 +48,7 @@ module.exports = {
     selectDetailAirlines,
     insertAirlines,
     updateAirlines,
+    setAirlineAvailability,
     deleteAirlines,
     countData,
     findId

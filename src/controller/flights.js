@@ -66,7 +66,7 @@ const flightsController = {
         .then((result) => {
           commonHelper.response(res, result.rows, 200, "get data by id success");
         })
-        .catch((err) => res.send(err));
+        .catch((err) => {res.send(err); console.log(err)});
     } catch (error) {
       console.log(error);
     }
@@ -96,7 +96,7 @@ const flightsController = {
     updateFlights(data)
       .then((result) => {
         console.log(result);
-        commonHelper.response(res, result.rows, 200, "Worker updated");
+        commonHelper.response(res, result.rows, 200, "Flight updated");
       })
       .catch((err) => res.status(500).json(err));
   },
