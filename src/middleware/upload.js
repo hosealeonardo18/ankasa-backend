@@ -1,35 +1,25 @@
 const multer = require("multer");
-const path = require("path");
-const createError = require("http-errors");
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "src/upload");
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-        const extFile = path.extname(file.originalname).split(".")[1];
-        cb(
-            null,
-            file.fieldname + "-" + uniqueSuffix + "." + extFile.toLowerCase()
-        );
-    },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const fileExtension = file.originalname.split(".")[1];
+    cb(null, file.fieldname + "-" + uniqueSuffix + "." + fileExtension);
+  },
 });
 
 const upload = multer({
-    storage: storage,
-    limits: {
-        fileSize: 2 * 1024 * 1024, //2 MB
-    },
-    fileFilter: (req, file, cb) => {
-        const acceptedTypeFile = ["jpg", "png", "jpeg"];
-
-        const extFile = path.extname(file.originalname).split(".")[1];
-        if (!acceptedTypeFile.includes(extFile.toLowerCase())) {
-            return cb(new createError(415, 'File extensions should be jpg, jpeg, and png'));
-        }
-        cb(null, true);
-    },
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+    if (!file.originalname.match(/.(jpg|jpeg|png)$/)) {
+      return cb(
+        new Error("Only image files types JPG/JPEG/PNG are allowed!"),
+        false
+      );
+    }
+    cb(null, true);
+  },
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2 MB
 });
 
 module.exports = upload;
