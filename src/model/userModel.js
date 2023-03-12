@@ -15,11 +15,29 @@ const insertUser = async (data) => {
   );
 };
 
-const editProfile = (fullname, password, image, id) => {
+const editProfile = (
+  fullname,
+  password,
+  image,
+  city,
+  address,
+  phone_number,
+  zipcode,
+  id
+) => {
   return new Promise((resolve, reject) => {
     const query = {
-      text: "UPDATE users SET fullname=$1, password=$2, image=$3 WHERE id=$4",
-      values: [fullname, password, image, id],
+      text: "UPDATE users SET fullname=$1, password=$2, image=$3, city=$4, address=$5, phone_number=$6, zipcode=$7 WHERE id=$8",
+      values: [
+        fullname,
+        password,
+        image,
+        city,
+        address,
+        phone_number,
+        zipcode,
+        id,
+      ],
     };
     Pool.query(query, (error, result) => {
       if (!error) {

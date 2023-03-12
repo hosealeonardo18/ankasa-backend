@@ -90,7 +90,8 @@ const userController = {
   editProfile: async (req, res) => {
     const userId = req.payload.id;
     const id = req.params.id;
-    const { fullname, password } = req.body;
+    const { fullname, password, phone_number, city, address, zipcode } =
+      req.body;
     let image;
 
     if (userId !== id) {
@@ -109,6 +110,18 @@ const userController = {
     if (password) {
       newData.password = await bcrypt.hash(password, saltRounds);
     }
+    if (phone_number) {
+      newData.phone_number = phone_number;
+    }
+    if (city) {
+      newData.city = city;
+    }
+    if (address) {
+      newData.address = address;
+    }
+    if (zipcode) {
+      newData.zipcode = zipcode;
+    }
 
     if (req.file) {
       const imageUrl = await cloudinary.uploader.upload(req.file.path, {
@@ -123,12 +136,20 @@ const userController = {
       name: newData.fullname || dataPw.rows[0].name,
       password: newData.password || dataPw.rows[0].password,
       image: image || dataPw.rows[0].image,
+      phone_number: newData.phone_number || dataPw.rows[0].phone_number,
+      city: newData.city || dataPw.rows[0].city,
+      address: newData.address || dataPw.rows[0].address,
+      zipcode: newData.zipcode || dataPw.rows[0].zipcode,
     };
 
     await userModel.editProfile(
       updatedData.name,
       updatedData.password,
       updatedData.image,
+      updatedData.phone_number,
+      updatedData.city,
+      updatedData.address,
+      updatedData.zipcode,
       id
     );
 
@@ -137,6 +158,9 @@ const userController = {
       fullname: updatedData.fullname,
       email: dataPw.rows[0].email,
       phone_number: dataPw.rows[0].phone_number,
+      city: dataPw.rows[0].city,
+      address: dataPw.rows[0].address,
+      zipcode: dataPw.rows[0].zipcode,
       image: updatedData.image,
     };
 
