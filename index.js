@@ -25,23 +25,23 @@ const port = process.env.PORT || 443;
 // use Main Router
 app.use("/", mainRouter);
 app.all("*", (req, res, next) => {
-    next(commonHelper.response(res, null, 404, "URL not Found"));
+  next(commonHelper.response(res, null, 404, "URL not Found"));
 });
 
 //Error code and message
 app.use((err, req, res, next) => {
-    const messageError = err.message || "Internal server error";
-    const statusCode = err.status || 500;
-    
-    //Fix multer file too large message to a proper one
-    if(messageError == "File too large"){
-        commonHelper.response(res, null, 413, "File too large (Max. 2MB)");
-    } else {
-        commonHelper.response(res, null, statusCode, messageError);
-    }
-})
+  const messageError = err.message || "Internal server error";
+  const statusCode = err.status || 500;
+
+  //Fix multer file too large message to a proper one
+  if (messageError == "File too large") {
+    commonHelper.response(res, null, 413, "File too large (Max. 2MB)");
+  } else {
+    commonHelper.response(res, null, statusCode, messageError);
+  }
+});
 
 // Listening port awaiting requests
 app.listen(port, () => {
-    console.log(`Server run on port: ${port}`);
+  console.log(`Server run on port: ${port}`);
 });
