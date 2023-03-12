@@ -25,4 +25,56 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-module.exports = { verifyToken };
+//Ensures id_user or id_admin in payload (login auth token)
+//Is the same compared to id_user or id_admin in params
+//This prevents user modifying data created by other user
+//Usually applied on put or delete request
+const isIdValid = (req, res, next) => {
+  const payload = req.payload;
+  const queryId = req.params.id_admin || req.params.id_user;
+  console.log(`payload id : ${payload}`);
+  console.log(`query id : ${queryId}`);
+  if (payload) {
+    if (payload.id == queryId) {
+      next();
+    } else {
+      commonHelper.response(res, null, 403,
+        "Modifying data created by other user is not allowed");
+    }
+  } else {
+    commonHelper.response(res, null, 403, "User not found");
+  }
+};
+
+//Checks if role in payload (login auth token) is admin
+const isAdmin = (req, res, next) => {
+  const payload = req.payload;
+  if (payload) {
+    if (payload.role === "admin") {
+      next();
+    } else {
+      commonHelper.response(res, null, 403,
+        "Unauthorized, please login as admin");
+    }
+  } else {
+    commonHelper.response(res, null, 403, "User not found");
+  }
+};
+
+//Checks if role in payload (login auth token) is user
+const isUser = (req, res, next) => {
+  const payload = req.payload;
+  if (payload) {
+    if (payload.role === "user") {
+      next();
+    } else {
+      commonHelper.response(res, null, 403,
+        "Unauthorized, please login as user");
+    }
+  } else {
+    commonHelper.response(res, null, 403, "User not found");
+  }
+};
+
+
+module.exports = { verifyToken, isIdValid, isAdmin, isUser };
