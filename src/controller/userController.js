@@ -55,7 +55,7 @@ const userController = {
       let payload = {
         email: user.email,
         id: user.id, // add the user ID to the payload
-        role: "user" // role for middleware check
+        role: "user", // role for middleware check
       };
       // console.log(payload)
       user.token = authHelper.generateToken(payload);
@@ -73,15 +73,20 @@ const userController = {
       let payload = {
         email: decoded.email,
         id: decoded.id, // add the user ID to the payload
-        role: decoded.role // role for middleware check
+        role: decoded.role, // role for middleware check
       };
       const result = {
         token: authHelper.generateToken(payload),
         refreshToken: authHelper.generateRefreshToken(payload),
       };
-      commonHelper.response(res, result, 200, "Get refresh token is successful");
+      commonHelper.response(
+        res,
+        result,
+        200,
+        "Get refresh token is successful"
+      );
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   },
 
@@ -90,16 +95,17 @@ const userController = {
       const email = req.payload.email;
       const {
         rows: [user],
-        rowCount
+        rowCount,
       } = await userModel.findEmail(email);
-      
-      if(!rowCount) return commonHelper.response(res, null, 404, "User not found");
+
+      if (!rowCount)
+        return commonHelper.response(res, null, 404, "User not found");
 
       delete user.password;
       commonHelper.response(res, user, 200, "Get data profile is successful");
     } catch (error) {
-      console.log(error)
-      res.send(error)
+      console.log(error);
+      res.send(error);
     }
   },
 
@@ -107,9 +113,17 @@ const userController = {
     try {
       const userId = req.payload.id;
       const id = req.params.id;
-      const { fullname, email, password, phone_number, city, address, zipcode } = req.body;
+      const {
+        fullname,
+        email,
+        password,
+        phone_number,
+        city,
+        address,
+        zipcode,
+      } = req.body;
       let image;
-  
+
       if (userId !== id) {
         return commonHelper.response(
           res,
@@ -118,7 +132,7 @@ const userController = {
           "You are not authorized to edit this profile"
         );
       }
-  
+
       let newData = {};
       if (fullname) {
         newData.fullname = fullname;
@@ -131,7 +145,7 @@ const userController = {
       if (password) {
         newData.password = await bcrypt.hash(password, saltRounds);
       }
-  
+
       if (req.file) {
         const imageUrl = await cloudinary.uploader.upload(req.file.path, {
           folder: "ankasa",
@@ -150,13 +164,13 @@ const userController = {
       if (address) {
         newData.address = address;
       }
-      
+
       if (zipcode) {
         newData.zipcode = zipcode;
       }
-  
+
       const dataPw = await userModel.findId(id);
-  
+
       const updatedData = {
         name: newData.fullname || dataPw.rows[0].name,
         email: newData.email || dataPw.rows[0].email,
@@ -167,7 +181,7 @@ const userController = {
         address: newData.address || dataPw.rows[0].address,
         zipcode: newData.zipcode || dataPw.rows[0].zipcode,
       };
-  
+
       await userModel.editProfile(
         updatedData.name,
         updatedData.email,
@@ -179,7 +193,7 @@ const userController = {
         updatedData.zipcode,
         id
       );
-  
+
       const responseData = {
         id: dataPw.rows[0].id,
         fullname: updatedData.fullname,
@@ -188,12 +202,17 @@ const userController = {
         phone_number: updatedData.phone_number,
         city: updatedData.city,
         address: updatedData.address,
-        zipcode : updatedData.zipcode,
+        zipcode: updatedData.zipcode,
       };
-  
-      commonHelper.response(res, responseData, 200, "Edit profile is successful");
+
+      commonHelper.response(
+        res,
+        responseData,
+        200,
+        "Edit profile is successful"
+      );
     } catch (error) {
-      console.log(error)
+      console.log(error);
       res.send(error);
     }
   },

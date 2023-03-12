@@ -3,6 +3,7 @@ const {
   selectDetailAirlines,
   insertAirlines,
   updateAirlines,
+  setAirlineAvailability,
   deleteAirlines,
   countData,
   findId,
@@ -10,6 +11,7 @@ const {
 
 const commonHelper = require("../helper/common");
 const { v4: uuidv4 } = require("uuid");
+var cloudinary = require("../config/cloudinary");
 
 const airlinesController = {
   getAllAirlines: async (req, res) => {
@@ -54,10 +56,15 @@ const airlinesController = {
     }
   },
   createAirlines: async (req, res) => {
-    const { name, logo } = req.body;
+    let { name, email, website, phone_number, availability } = req.body;
+    if(availability == undefined) {
+      availability = true;
+    }
     const id = uuidv4();
-    const date_created = new Date();
-    const data = { id, name, logo, date_created };
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const image = result.secure_url;
+    const data = { id, name, email, image, website, phone_number, availability };
+    console.log(data);
     insertAirlines(data)
     .then((result) => {
         commonHelper.response(res, result.rows, 201, "Airlines created");
@@ -66,18 +73,40 @@ const airlinesController = {
   },
   updateAirlines: async (req, res) => {
     const id = req.params.id;
-    const { name, logo } = req.body;
+    let { name, email, website, phone_number, availability } = req.body;
+    if(availability == undefined) {
+      availability = true;
+    }
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const image = result.secure_url;
     const { rowCount } = await findId(id);
     if (!rowCount) {
         return res.json({
           Message: "data not found",
         });
     }
-    const data = { id, name, logo, date_created };
+    const data = { id, name, email, image, website, phone_number, availability };
     updateAirlines(data)
     .then((result) => {
         console.log(result);
-        commonHelper.response(res, result.rows, 200, "Worker updated");
+        commonHelper.response(res, result.rows, 200, "Airline updated");
+      })
+    .catch((err) => res.status(500).json(err));
+  },
+  airlinesAvailability: async (req, res) => {
+    const id = req.params.id;
+    let { availability } = req.body;
+    
+    const { rowCount } = await findId(id);
+    if (!rowCount) {
+        return res.json({
+          Message: "data not found",
+        });
+    }
+    const data = { id, availability }
+    setAirlineAvailability(data)
+    .then((result) => {
+        commonHelper.response(res, result.rows, 200, "Airline status updated");
       })
     .catch((err) => res.status(500).json(err));
   },
@@ -94,3 +123,5 @@ const airlinesController = {
     .catch((err) => res.send(err));
   }
 };
+
+module.exports = airlinesController;
