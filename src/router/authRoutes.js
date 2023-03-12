@@ -9,7 +9,7 @@ const {
 const upload = require("../middleware/upload");
 
 router.post("/register", validateRegister, userController.registerUser);
-router.post("/loginnn", validateLogin, userController.loginUser);
+router.post("/login", validateLogin, userController.loginUser);
 router.post("/refresh-token", userController.refreshToken);
 router.get("/profile", verifyToken, userController.profileUser);
 router.put(
