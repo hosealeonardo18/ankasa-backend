@@ -216,6 +216,20 @@ const userController = {
       res.send(error);
     }
   },
+  selectAllUser: async (req, res) => {
+    try {
+      const result = await userModel.getAllUser();
+      console.log(result);
+      const { rows: [count], } = await userModel.countData();
+      const totalData = parseInt(count.count);
+      const pagination = {
+        totalData: totalData,
+      };
+      commonHelper.response(res, result.rows, 200, "get data succes", pagination);
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 module.exports = userController;

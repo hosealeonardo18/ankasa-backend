@@ -9,5 +9,6 @@ const {
 router.post("/register", validateRegister, adminController.registerAdmin);
 router.post("/login", validateLogin, adminController.loginAdmin);
 router.post("/refresh-token", adminController.refreshToken);
+router.get("/", adminController.selectAllAdmin);
 
 module.exports = router;
