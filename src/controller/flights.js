@@ -19,10 +19,10 @@ const flightsController = {
       let luggage = req.query.luggage || "";
       let inflight_meal = req.query.inflight_meal || "";
       let wifi = req.query.wifi || "";
-      let deptTimeStart = req.query.deptTimeStart || "";
-      let deptTimeEnd = req.query.deptTimeEnd || "";
-      let arriveTimeStart = req.query.arriveTimeStart || "";
-      let arriveTimeEnd = req.query.arriveTimeEnd || "";
+      let deptDatetimeStart = req.query.deptDatetimeStart || "";
+      let deptDatetimeEnd = req.query.deptDatetimeEnd || "";
+      let arriveDatetimeStart = req.query.arriveDatetimeStart || "";
+      let arriveDatetimeEnd = req.query.arriveDatetimeEnd || "";
       let airline = req.query.airline || "";
       let ticketPriceStart = req.query.ticketPriceStart || "";
       let ticketPriceEnd = req.query.ticketPriceEnd || "";
@@ -33,8 +33,8 @@ const flightsController = {
       const offset = (page - 1) * limit;
 
       const data = {
-        cityDept, cityDest, transit, luggage, inflight_meal, wifi, deptTimeStart,
-        deptTimeEnd, arriveTimeStart, arriveTimeEnd, airline, ticketPriceStart, ticketPriceEnd, sortBY, sort, limit, offset
+        cityDept, cityDest, transit, luggage, inflight_meal, wifi, deptDatetimeStart,
+        deptDatetimeEnd, arriveDatetimeStart, arriveDatetimeEnd, airline, ticketPriceStart, ticketPriceEnd, sortBY, sort, limit, offset
       }
       const result = await selectAllFlights(data);
 
