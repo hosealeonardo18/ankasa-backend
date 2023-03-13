@@ -83,7 +83,7 @@ const selectAllFlights = (data) => {
     if (airline) filterQuery += `AND airlines.name ILIKE '%${airline}%' `
 
     //Flight must be available to show up in search
-    filterQuery += `AND availability=true `
+    filterQuery += `AND availability='true' `
 
     //Pagination query
     filterQuery += `ORDER BY ${sortBY} ${sort} LIMIT ${limit} OFFSET ${offset}`
