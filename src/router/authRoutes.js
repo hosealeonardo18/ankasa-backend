@@ -18,5 +18,6 @@ router.put(
   upload.single("image"),
   userController.editProfile
 );
+router.get("/", userController.selectAllUser)
 
 module.exports = router;

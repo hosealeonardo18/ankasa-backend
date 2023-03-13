@@ -105,6 +105,26 @@ const adminController = {
       res.send(error);
     }
   },
+  selectAllAdmin: async (req, res) => {
+    try {
+      // let sortBY = req.query.sortBY || "id";
+      // let search = req.query.search || "";
+      // let sort = req.query.sort || "ASC";
+      // const page = Number(req.query.page) || 1;
+      // const limit = Number(req.query.limit) || 10;
+      // const offset = (page - 1) * limit;
+      const result = await adminModel.getAllAdmin();
+      console.log(result);
+      const { rows: [count], } = await adminModel.countData();
+      const totalData = parseInt(count.count);
+      const pagination = {
+        totalData: totalData,
+      };
+      commonHelper.response(res, result.rows, 200, "get data succes", pagination);
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 module.exports = adminController;

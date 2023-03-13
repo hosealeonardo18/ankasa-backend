@@ -15,4 +15,12 @@ const insertAdmin = async (data) => {
   );
 };
 
-module.exports = { findId, findEmail, insertAdmin };
+const getAllAdmin = async () => {
+  return await Pool.query("SELECT * FROM admin")
+}
+
+const countData = () => {
+  return Pool.query('SELECT COUNT(*) FROM admin')
+};
+
+module.exports = { findId, findEmail, insertAdmin, getAllAdmin, countData };
