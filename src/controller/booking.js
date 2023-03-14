@@ -119,7 +119,7 @@ const createBooking = async (req, res) => {
         const findFlight = await flightsModel.findId(data.id_flight);
         if (!findFlight.rowCount) return commonHelper
             .response(res, null, 404, "Flight id not found");
-
+        const capacity = findFlight.rows[0].capacity
         //Booking metadata
         data.id = uuidv4();
         data.id_user = id_user;
@@ -136,6 +136,14 @@ const createBooking = async (req, res) => {
         console.log(data.insurance)
         console.log(totalPrice);
 
+`        // let newCapacity = 0;
+        // if ( < totalPrice) {
+        //     return commonHelper.response(res, null, 403, "Insufficient credit card balance");
+        // } else {
+        //     newBalance = creditCardBalance - totalPrice;
+        //     const creditCardResult = await creditCardModel.updateBalance(id_credit_card, newBalance)
+        // }`
+
         let newBalance = 0;
         if (creditCardBalance < totalPrice) {
             return commonHelper.response(res, null, 403, "Insufficient credit card balance");
@@ -151,6 +159,7 @@ const createBooking = async (req, res) => {
         passengers.forEach(async (element) => {
             element.id = uuidv4();
             element.id_booking = id_booking;
+            element.passenger_type = element.passenger_type ? element.passenger_type : 1;
             const passengersResult = await passengersModel.insertPassengers(element);
         });
 
