@@ -80,12 +80,11 @@ const getDetailBooking = async (req, res) => {
         //Get all bookings from database
         const results = await bookingModel.selectDetailBooking(id)
 
-        //Return not found if there's no workers in database
+        //Return not found if there's no passengers in database
         if (!results.rowCount) return commonHelper
             .response(res, null, 404, "Booking detail not found");
 
         const passengersResult = await passengersModel.selectBookingPassengers(id);
-        console.log(passengersResult)
         results.rows[0].passengers = passengersResult.rows;
 
         //Response

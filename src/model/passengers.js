@@ -14,7 +14,6 @@ const selectDetailPassengers = (id) =>{
 
 const insertPassengers = (data) => {
     const { id, id_booking, title, fullname, nationality, passenger_type, seat } = data;
-    console.log(data);
     return Pool.query(`INSERT INTO passengers VALUES('${id}','${id_booking}','${title}','${fullname}', '${nationality}', '${passenger_type}')`);
 };
 
