@@ -100,9 +100,7 @@ create table reviews(
     foreign key (id_flight) references flights(id),
     rating int not null,
     title varchar(30) not null,
-    description text,
-    created_at timestamp,
-    updated_at timestamp
+    description text
 );
 
 create table booking(
