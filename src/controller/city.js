@@ -22,6 +22,7 @@ const cityController = {
             const limit = Number(req.query.limit) || 10;
             const offset = (page - 1) * limit;
             const result = await selectAllCity(search, sortBY, sort, limit, offset);
+            console.log(result);
             const { rows: [count], } = await countData();
             const totalData = parseInt(count.count);
             const totalPage = Math.ceil(totalData / limit);
@@ -55,11 +56,11 @@ const cityController = {
         }
     },
     createCity: async (req, res) => {
-        const { name, country } = req.body;
+        const { name, country, description } = req.body;
         const id = uuidv4();
         const result = await cloudinary.uploader.upload(req.file.path)
         const image = result.secure_url;
-        const data = { id, name, country, image };
+        const data = { id, name, country, image, description };
         insertCity(data)
             .then((result) => {
                 commonHelper.response(res, result.rows, 201, "City created");
@@ -68,7 +69,7 @@ const cityController = {
     },
     updateCity: async (req, res) => {
         const id = req.params.id;
-        const { name, country } = req.body;
+        const { name, country, description } = req.body;
         const result = await cloudinary.uploader.upload(req.file.path)
         const image = result.secure_url;
         const { rowCount } = await findId(id);
@@ -77,10 +78,9 @@ const cityController = {
                 Message: "data not found",
             });
         }
-        const data = { id, name, country, image };
+        const data = { id, name, country, image, description };
         updateCity(data)
             .then((result) => {
-                console.log(result);
                 commonHelper.response(res, result.rows, 200, "City updated");
             })
             .catch((err) => res.status(500).json(err));

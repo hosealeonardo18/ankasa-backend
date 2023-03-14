@@ -18,5 +18,9 @@ router.put(
   upload.single("image"),
   userController.editProfile
 );
+router.get("/", userController.selectAllUser)
+// verif
+router.post("/registerVerif", userController.registerVerif);
+router.get("/verif/:id", userController.verifUser);
 
 module.exports = router;

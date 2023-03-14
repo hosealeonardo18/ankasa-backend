@@ -9,13 +9,13 @@ const selectDetailCity = (id) =>{
 };
 
 const insertCity = (data) => {
-    const { id, name, country, image } = data;
-    return Pool.query(`INSERT INTO city(id,name,country,image) VALUES('${id}','${name}','${country}','${image}')`);
+    const { id, name, country, image, description } = data;
+    return Pool.query(`INSERT INTO city(id,name,country,image, description) VALUES('${id}','${name}','${country}','${image}', '${description}')`);
 };
 
 const updateCity = (data) => {
-    const { id, name, email, country, image } = data;
-    return Pool.query(`UPDATE city SET name='${name}', country='${country}', image='${image}' WHERE id='${id}'`);
+    const { id, name, country, image, description } = data;
+    return Pool.query(`UPDATE city SET name='${name}', country='${country}', image='${image}', description='${description}' WHERE id='${id}'`);
 };
 
 const deleteCity = (id) => {

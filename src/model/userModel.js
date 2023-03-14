@@ -51,4 +51,15 @@ const editProfile = (
   });
 };
 
-module.exports = { findId, findEmail, insertUser, editProfile };
+const getAllUser = async () => {
+  return await Pool.query("SELECT * FROM users")
+}
+
+const countData = () => {
+  return Pool.query('SELECT COUNT(*) FROM users')
+};
+// verif
+function selectUserEmail(email) {
+  return Pool.query(`SELECT * FROM users WHERE email='${email}'`);
+}
+module.exports = { findId, findEmail, insertUser, editProfile, getAllUser, countData, selectUserEmail };
