@@ -33,8 +33,8 @@ const selectDetailBooking = (id) =>{
 };
 
 const insertBooking = (data) => {
-    const { id, id_user, id_flight, id_credit_card, insurance, status, created_at, fullname, email, phone_number } = data;
-    return Pool.query(`INSERT INTO booking VALUES('${id}','${id_user}','${id_flight}','${id_credit_card}', '${insurance}', '${status}', to_timestamp(${created_at} / 1000.0), '${fullname}', '${email}', '${phone_number}')`);
+    const { id, id_user, id_flight, id_credit_card, insurance, status, created_at, name, email, phone_number } = data;
+    return Pool.query(`INSERT INTO booking VALUES('${id}','${id_user}','${id_flight}','${id_credit_card}', '${insurance}', '${status}', to_timestamp(${created_at} / 1000.0), '${name}', '${email}', '${phone_number}')`);
 };
 
 const setBookingStatus = (id, status) => {
@@ -42,8 +42,8 @@ const setBookingStatus = (id, status) => {
 }
 
 const updateBooking = (data) => {
-    const { id, id_user, id_flight, id_credit_card, insurance, status, created_at } = data;
-    return Pool.query(`UPDATE booking SET id_flight='${id_flight}', id_credit_card='${id_credit_card}', insurance='${insurance}', status='${status}', fullname='${fullname}', email='${email}', phone_number='${phone_number}' WHERE id='${id}'`);
+    const { id, id_user, id_flight, id_credit_card, insurance, status, created_at, name, email, phone_number } = data;
+    return Pool.query(`UPDATE booking SET id_flight='${id_flight}', id_credit_card='${id_credit_card}', insurance='${insurance}', status='${status}', name='${name}', email='${email}', phone_number='${phone_number}' WHERE id='${id}'`);
 };
 
 const deleteBooking = (id) => {
