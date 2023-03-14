@@ -7,6 +7,8 @@ const {
     countData,
     findId,
     findIdUser,
+    setPreffered,
+    unsetPreffered
 } = require("../model/creditCard");
 
 const commonHelper = require("../helper/common");
@@ -48,7 +50,7 @@ const creditCardController = {
             }
             selectDetailCredit(id_user)
                 .then((result) => {
-                    commonHelper.response(res, result.rows, 200, "get data by id success");
+                    commonHelper.response(res, result.rows, 200, "get data by user id success");
                 })
                 .catch((err) => res.send(err));
         } catch (error) {
@@ -67,6 +69,19 @@ const creditCardController = {
                 commonHelper.response(res, result.rows, 201, "Credit Card created");
             })
             .catch((err) => res.status(500).json(err));
+    },
+    setPreffered: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const id_user = req.payload.id;
+            
+            const unsetResult = await unsetPreffered(id_user);
+            const setResult = await setPreffered(id);
+
+            commonHelper.response(res, setResult.rows, 201, "set preffered credit card success");
+        } catch (error) {
+            commonHelper.response(res, null, "set preffered credit card failed")
+        }
     },
     updateCredit: async (req, res) => {
         const id = req.params.id;
