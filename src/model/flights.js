@@ -1,9 +1,15 @@
 const Pool = require('../config/db');
 
 const selectAllFlights = (data) => {
-    const { cityDept, cityDest, transit, luggage, inflight_meal, wifi,
-        deptTimeStart, deptTimeEnd, arriveTimeStart, arriveTimeEnd, airline,
-        ticketPriceStart, ticketPriceEnd, sortBY, sort, limit, offset } = data;
+    const {
+        cityDept, cityDest, transit, flightTrip, flightClass, luggage, inflight_meal, wifi,
+        deptDate, deptTimeStart, deptTimeEnd, arrivalTimeStart, arrivalTimeEnd,
+        person, airline, ticketPriceStart, ticketPriceEnd, sortBY, sort, limit, offset
+    } = data;
+
+    const joinTime = (value, index) => {
+        return value.substring(0, index) + ":" + value.substring(index);
+    }
 
     //Main query
     let filterQuery = `SELECT airlines.name AS "airline", airlines.availability, 
@@ -14,9 +20,28 @@ const selectAllFlights = (data) => {
     filterQuery += `city_departure ILIKE '%${cityDept}%' AND 
         city_destination ILIKE '%${cityDest}%' `
 
+    //Departure date
+    if (deptDate) filterQuery += `AND date_departure='${deptDate}' `
+
+    //Departure time start and end
+    if (deptTimeStart && deptTimeEnd) {
+        const timeStart = joinTime(deptTimeStart, 2)
+        const timeEnd = joinTime(deptTimeEnd, 2)
+
+        filterQuery += `AND time_departure>='${timeStart}' 
+        AND time_departure<='${timeEnd}' `
+    }
+
+    //Arrival time start and end
+    if (arrivalTimeStart && arrivalTimeEnd) {
+        const timeStart = joinTime(arrivalTimeStart, 2)
+        const timeEnd = joinTime(arrivalTimeEnd, 2)
+
+        filterQuery += `AND time_arrival>='${timeStart}' 
+        AND time_arrival<='${timeEnd}' `
+    }
+
     //Transit query
-    console.log(typeof transit)
-    console.log(transit)
     if (transit === "0") {
         filterQuery += `AND transit_count=0 `
     } else if (transit === "1") {
@@ -25,35 +50,44 @@ const selectAllFlights = (data) => {
         filterQuery += `AND transit_count>=${transit} `
     }
 
-    //Amenities
-    if (wifi) filterQuery += `AND wifi=${wifi} `
-    if (luggage) filterQuery += `AND luggage=${luggage} `
-    if (inflight_meal) filterQuery += `AND inflight_meal=${inflight_meal} `
+    //Flight trip query
+    if (flightTrip === "1") {
+        filterQuery += `AND flight_trip=1 `
+    } else if (flightTrip === "2") {
+        filterQuery += `AND flight_trip=2 `
+    }
 
-    //Departure time start and end
-    if (deptTimeStart && deptTimeEnd)
-        filterQuery += `AND time_departure>=${deptTimeStart} 
-        AND time_departure<=${deptTimeEnd} `
+    //Flight class query
+    if (flightClass === "1") {
+        filterQuery += `AND flight_class=1 `
+    } else if (flightClass === "2") {
+        filterQuery += `AND flight_class=2 `
+    } else if (flightClass === "3") {
+        filterQuery += `AND flight_class=3 `
+    }
 
-    //Arrival time start and end
-    if (arriveTimeStart && arriveTimeEnd)
-        filterQuery += `AND time_arrival>=${arriveTimeStart} AND 
-        time_arrival<=${arriveTimeEnd} `
-
-    //Airline search
-    if (airline) filterQuery += `AND airline ILIKE '%${airline}%' `
-
+    //Capacity
+    if (person) filterQuery += `AND capacity>=${person} `
+    
     //Flight ticket price search
     if (ticketPriceStart && ticketPriceEnd)
         filterQuery += `AND price>=${ticketPriceStart} AND 
         price<=${ticketPriceEnd} `
 
+    //Amenities
+    if (wifi) filterQuery += `AND wifi=${wifi} `
+    if (luggage) filterQuery += `AND luggage=${luggage} `
+    if (inflight_meal) filterQuery += `AND inflight_meal=${inflight_meal} `
+
+    //Airline search
+    if (airline) filterQuery += `AND airlines.name ILIKE '%${airline}%' `
+
     //Flight must be available to show up in search
-    filterQuery += `AND availability=true `
+    filterQuery += `AND availability='true' `
 
     //Pagination query
     filterQuery += `ORDER BY ${sortBY} ${sort} LIMIT ${limit} OFFSET ${offset}`
-    console.log(filterQuery)
+    // console.log(filterQuery)
     return Pool.query(filterQuery);
 };
 
@@ -75,13 +109,17 @@ const updateFlights = (data) => {
     transit_count='${transit_count}', flight_trip='${flight_trip}', flight_class='${flight_class}', capacity='${capacity}', price='${price}', luggage='${luggage}', inflight_meal='${inflight_meal}', wifi='${wifi}', refundable='${refundable}', reschedule='${reschedule}', code='${code}', terminal='${terminal}', gate='${gate}', updated_at=to_timestamp(${updated_at} / 1000.0) WHERE id='${id}'`);
 };
 
+const updateCapacity = (id, newCapacity) => {
+    return Pool.query(`UPDATE flights SET capacity='${newCapacity}' where id='${id}'`);
+}
+
 const deleteFlights = (id) => {
     return Pool.query(`DELETE FROM flights WHERE id='${id}'`);
 };
 
 const findId = (id) => {
     return new Promise((resolve, reject) =>
-        Pool.query(`SELECT id FROM flights WHERE id='${id}'`, (error, result) => {
+        Pool.query(`SELECT * FROM flights WHERE id='${id}'`, (error, result) => {
             if (!error) {
                 resolve(result)
             } else {
@@ -102,5 +140,6 @@ module.exports = {
     updateFlights,
     deleteFlights,
     countData,
-    findId
+    findId,
+    updateCapacity
 }

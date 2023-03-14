@@ -7,6 +7,8 @@ const {
     countData,
     findId,
     findIdUser,
+    setPreffered,
+    unsetPreffered
 } = require("../model/creditCard");
 
 const commonHelper = require("../helper/common");
@@ -39,7 +41,6 @@ const creditCardController = {
     getDetailCredit: async (req, res) => {
         try {
             const id_user = req.params.id;
-            console.log(id_user);
             const { rowCount } = await findIdUser(id_user);
             if (!rowCount) {
                 return res.json({
@@ -48,7 +49,7 @@ const creditCardController = {
             }
             selectDetailCredit(id_user)
                 .then((result) => {
-                    commonHelper.response(res, result.rows, 200, "get data by id success");
+                    commonHelper.response(res, result.rows, 200, "get data by user id success");
                 })
                 .catch((err) => res.send(err));
         } catch (error) {
@@ -68,6 +69,19 @@ const creditCardController = {
             })
             .catch((err) => res.status(500).json(err));
     },
+    setPreffered: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const id_user = req.payload.id;
+            
+            const unsetResult = await unsetPreffered(id_user);
+            const setResult = await setPreffered(id);
+
+            commonHelper.response(res, setResult.rows, 201, "set preffered credit card success");
+        } catch (error) {
+            commonHelper.response(res, null, "set preffered credit card failed")
+        }
+    },
     updateCredit: async (req, res) => {
         const id = req.params.id;
         const { fullname, credit_number, expire, cvv, balance } = req.body;
@@ -83,7 +97,6 @@ const creditCardController = {
         console.log(data);
         updateCredit(data)
             .then((result) => {
-                console.log(result);
                 commonHelper.response(res, result.rows, 200, "Credit Card updated");
             })
             .catch((err) => res.status(500).json(err));

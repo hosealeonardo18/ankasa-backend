@@ -27,4 +27,8 @@ router.use("/city", cityRouter);
 const creditCardRouter = require("./creditCard");
 router.use("/creditCard", creditCardRouter);
 
+// credit card
+const bookingRouter = require("./booking");
+router.use("/booking", bookingRouter);
+
 module.exports = router;
