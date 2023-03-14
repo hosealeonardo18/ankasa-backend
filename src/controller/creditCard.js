@@ -41,7 +41,6 @@ const creditCardController = {
     getDetailCredit: async (req, res) => {
         try {
             const id_user = req.params.id;
-            console.log(id_user);
             const { rowCount } = await findIdUser(id_user);
             if (!rowCount) {
                 return res.json({
@@ -98,7 +97,6 @@ const creditCardController = {
         console.log(data);
         updateCredit(data)
             .then((result) => {
-                console.log(result);
                 commonHelper.response(res, result.rows, 200, "Credit Card updated");
             })
             .catch((err) => res.status(500).json(err));
