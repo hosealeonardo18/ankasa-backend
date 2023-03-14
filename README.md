@@ -68,11 +68,12 @@ Run `npm run lint` for debugging errors in this repository
 | [Multer] | multipart/form-data handling |
 | [Path] | Directory and file path handling |
 | [UUID] | UUID Generator |
+| [Socket.io] | Realtime communication for chat |
 
 [docs]: <docs>
 [Postman API colletion]: <docs/ankasa-backend.postman_collection.json>
 [PostgreSQL Database Query]: <docs/ankasa-database-query.sql>
-[Database Diagram]: <docs/ankasa-database-diagram.png>
+[Database Diagram]: <docs/ankasa-database-diagram.drawio.png>
 [@breadsticks64 (Alif Anke Bima Putra)]: <https://www.github.com/breadsticks64>
 [@rrizalyuniar (R. Rizal Yuniar Sutono)]: <https://github.com/rrizalyuniar>
 [@andkvnt (Andiko Oktavianto)]: <https://www.github.com/andkvnt>
@@ -93,22 +94,4 @@ Run `npm run lint` for debugging errors in this repository
 [Multer]: <https://github.com/expressjs/multer>
 [Path]: <https://github.com/jinder/path>
 [UUID]: <https://github.com/uuidjs/uuid>
-
-    "bcrypt": "^5.1.0",
-    "bcryptjs": "^2.4.3",
-    "cloudinary": "^1.35.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "helmet": "^6.0.1",
-    "http": "^0.0.1-security",
-    "http-errors": "^2.0.0",
-    "jsonwebtoken": "^9.0.0",
-    "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.9.1",
-    "path": "^0.12.7",
-    "pg": "^8.9.0",
-    "socket.io": "^4.6.1",
-    "uuid": "^9.0.0",
-    "xss-clean": "^0.1.1"
+[Socket.io]: <https://socket.io/>
