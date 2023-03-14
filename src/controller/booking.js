@@ -106,7 +106,7 @@ const createBooking = async (req, res) => {
 
         //Get preffered credit card
         const creditCardResults = await creditCardModel.selectDetailCredit(id_user);
-        if (!creditCardResults.rowCount) return commonHelper.response(res, result.rows, 404,
+        if (!creditCardResults.rowCount) return commonHelper.response(res, null, 404,
             "User doesn't have a credit card");
         const prefferedCreditCard = creditCardResults.rows.filter((value) => {
             if (value.preffered) return value

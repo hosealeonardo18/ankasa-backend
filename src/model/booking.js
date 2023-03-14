@@ -1,35 +1,37 @@
 const Pool = require('../config/db');
 
 const selectAllBooking = (search, sortBY, sort, limit, offset) => {
-    return Pool.query(`select booking.*, flights.city_departure_code, 
+    return Pool.query(`select users.fullname, booking.*, flights.city_departure_code, 
         flights.city_destination_code, flights.code, flights.flight_class, 
         flights.terminal, flights.gate, flights.date_departure, 
         flights.time_departure, airlines.name AS "airline", airlines.image 
         FROM booking inner join flights on booking.id_flight = flights.id 
-        inner join airlines on flights.id_airline = airlines.id WHERE 
+        inner join airlines on flights.id_airline = airlines.id inner join 
+        users on booking.id_user = users.id WHERE 
         name ILIKE '%${search}%' ORDER BY ${sortBY} ${sort} LIMIT ${limit} 
         OFFSET ${offset}`);
 };
 
 const selectUserBooking = (id_user, search, sortBY, sort, limit, offset) => {
-    return Pool.query(`select booking.*, flights.city_departure_code, 
+    return Pool.query(`select users.fullname, booking.*, flights.city_departure_code, 
         flights.city_destination_code, flights.code, flights.flight_class, 
         flights.terminal, flights.gate, flights.date_departure, 
         flights.time_departure, airlines.name AS "airline", airlines.image 
         FROM booking inner join flights on booking.id_flight = flights.id 
-        inner join airlines on flights.id_airline = airlines.id 
+        inner join airlines on flights.id_airline = airlines.id inner join 
+        users on booking.id_user = users.id 
         WHERE booking.id_user='${id_user}' AND name ILIKE '%${search}%' 
         ORDER BY ${sortBY} ${sort} LIMIT ${limit} OFFSET ${offset}`);
 };
 
 const selectDetailBooking = (id) =>{
-    return Pool.query(`select booking.*, flights.city_departure_code, 
+    return Pool.query(`select users.fullname, booking.*, flights.city_departure_code, 
         flights.city_destination_code, flights.code, flights.flight_class, 
         flights.terminal, flights.gate, flights.date_departure, 
         flights.time_departure, airlines.name AS "airline", airlines.image 
         FROM booking inner join flights on booking.id_flight = flights.id 
-        inner join airlines on flights.id_airline = airlines.id 
-        WHERE booking.id='${id}'`);
+        inner join airlines on flights.id_airline = airlines.id inner join 
+        users on booking.id_user = users.id WHERE booking.id='${id}'`);
 };
 
 const insertBooking = (data) => {
