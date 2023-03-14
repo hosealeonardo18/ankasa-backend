@@ -109,6 +109,10 @@ const updateFlights = (data) => {
     transit_count='${transit_count}', flight_trip='${flight_trip}', flight_class='${flight_class}', capacity='${capacity}', price='${price}', luggage='${luggage}', inflight_meal='${inflight_meal}', wifi='${wifi}', refundable='${refundable}', reschedule='${reschedule}', code='${code}', terminal='${terminal}', gate='${gate}', updated_at=to_timestamp(${updated_at} / 1000.0) WHERE id='${id}'`);
 };
 
+const updateCapacity = (id, newCapacity) => {
+    return Pool.query(`UPDATE flights SET capacity='${newCapacity}' where id='${id}'`);
+}
+
 const deleteFlights = (id) => {
     return Pool.query(`DELETE FROM flights WHERE id='${id}'`);
 };
@@ -136,5 +140,6 @@ module.exports = {
     updateFlights,
     deleteFlights,
     countData,
-    findId
+    findId,
+    updateCapacity
 }
