@@ -29,10 +29,11 @@ create table credit_card(
     id_user varchar(36) references users on update cascade on delete cascade,
     foreign key (id_user) references users(id),
     fullname varchar(40) not null,
-    credit_number int not null,
+    credit_number varchar(16) not null,
     expire date not null,
     cvv int not null,
-    balance numeric not null
+    balance numeric not null,
+    preffered boolean default('true')
 );
 
 create table chat(
@@ -59,7 +60,7 @@ create table airlines(
     website varchar,
     email varchar(60),
     phone_number varchar(16),
-    availability boolean default(true)
+    availability varchar(5) default('true')
 );
 
 create table flights(
@@ -112,6 +113,7 @@ create table booking(
     foreign key (id_flight) references flights(id),
     id_credit_card varchar(36) references credit_card on update cascade on delete cascade,
     foreign key (id_credit_card) references credit_card(id),
+    insurance boolean default('true'),
     status int not null,
     created_at timestamp
 );

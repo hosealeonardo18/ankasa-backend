@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 const userModel = require("../model/userModel");
+const creditCardModel = require("../model/creditCard");
 const uuid = require("uuid");
 const commonHelper = require("../helper/common");
 const authHelper = require("../helper/auth");
@@ -100,6 +101,13 @@ const userController = {
 
       if (!rowCount)
         return commonHelper.response(res, null, 404, "User not found");
+
+      const creditCard = await creditCardModel.selectDetailCredit(user.id);
+      if(creditCard.rowCount){
+        user.creditCards = creditCard.rows;
+      } else {
+        user.creditCards = []
+      }
 
       delete user.password;
       commonHelper.response(res, user, 200, "Get data profile is successful");
