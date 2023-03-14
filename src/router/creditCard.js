@@ -7,6 +7,7 @@ const {verifyToken} = require('../middleware/auth')
 
 router.get("/",  creditCardController.getAllCredit);
 router.post("/", verifyToken, creditCardController.createCredit);
+router.post("/preffered/:id", verifyToken, creditCardController.setPreffered);
 router.get("/:id", creditCardController.getDetailCredit);
 router.put("/:id", verifyToken, creditCardController.updateCredit);
 router.delete("/:id", creditCardController.deleteCredit);

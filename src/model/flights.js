@@ -115,7 +115,7 @@ const deleteFlights = (id) => {
 
 const findId = (id) => {
     return new Promise((resolve, reject) =>
-        Pool.query(`SELECT id FROM flights WHERE id='${id}'`, (error, result) => {
+        Pool.query(`SELECT * FROM flights WHERE id='${id}'`, (error, result) => {
             if (!error) {
                 resolve(result)
             } else {

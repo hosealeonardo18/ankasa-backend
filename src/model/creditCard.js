@@ -18,6 +18,18 @@ const updateCredit = (data) => {
     return Pool.query(`UPDATE credit_card SET fullname='${fullname}', credit_number='${credit_number}', expire='${expire}', cvv='${cvv}', balance='${balance}', id_user='${id_user}' WHERE id='${id}'`);
 };
 
+const unsetPreffered = (id_user) => {
+    return Pool.query(`UPDATE credit_card SET preffered='false' WHERE id_user='${id_user}'`);
+};
+
+const setPreffered = (id) => {
+    return Pool.query(`UPDATE credit_card SET preffered='true' WHERE id='${id}'`);
+};
+
+const updateBalance = (id, newBalance) => {
+    return Pool.query(`UPDATE credit_card SET balance='${newBalance}' WHERE id='${id}'`);
+};
+
 const deleteCredit = (id) => {
     return Pool.query(`DELETE FROM credit_card WHERE id='${id}'`);
 };
@@ -58,5 +70,8 @@ module.exports = {
     deleteCredit,
     countData,
     findId,
-    findIdUser
+    findIdUser,
+    unsetPreffered,
+    setPreffered,
+    updateBalance
 }
