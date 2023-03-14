@@ -1,0 +1,24 @@
+# PostgreSQL
+PGDATABASE=railway
+PGHOST=containers-us-west-44.railway.app
+PGPASSWORD=risV8bnHcdjbUo7S8bXP
+PGPORT=7336
+PGUSER=postgres
+
+# Railway Deployment
+RAILWAY_STATIC_URL=localhost
+
+# Port
+PORT=4000
+
+# JWT Secret Key
+SECRET_KEY_JWT=jwt_password
+
+# Cloudinary
+CLOUDINARY_CLOUDNAME=dvifsp69f
+CLOUDINARY_APIKEY=182278728146524
+CLOUDINARY_APISECRET=3ONR7ZJXq3vG-IfIwx7x-y6eO5g
+
+# TODO Email Verify Account
+EMAIL_SENDER=email@gmail.com
+EMAIL_SENDER_PASSWORD=password123
