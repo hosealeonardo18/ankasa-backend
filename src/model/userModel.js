@@ -58,5 +58,8 @@ const getAllUser = async () => {
 const countData = () => {
   return Pool.query('SELECT COUNT(*) FROM users')
 };
-
-module.exports = { findId, findEmail, insertUser, editProfile, getAllUser, countData };
+// verif
+function selectUserEmail(email) {
+  return Pool.query(`SELECT * FROM users WHERE email='${email}'`);
+}
+module.exports = { findId, findEmail, insertUser, editProfile, getAllUser, countData, selectUserEmail };

@@ -8,6 +8,9 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 var cloudinary = require("../config/cloudinary");
 
+// verif
+const { sendMail } = require("../config/mail");
+
 const userController = {
   registerUser: async (req, res) => {
     try {
@@ -216,19 +219,92 @@ const userController = {
       res.send(error);
     }
   },
+
   selectAllUser: async (req, res) => {
     try {
       const result = await userModel.getAllUser();
       console.log(result);
-      const { rows: [count], } = await userModel.countData();
+      const {
+        rows: [count],
+      } = await userModel.countData();
       const totalData = parseInt(count.count);
       const pagination = {
         totalData: totalData,
       };
-      commonHelper.response(res, result.rows, 200, "get data succes", pagination);
+      commonHelper.response(
+        res,
+        result.rows,
+        200,
+        "get data succes",
+        pagination
+      );
     } catch (error) {
       console.log(error);
     }
+  },
+
+  registerVerif: async (req, res) => {
+    try {
+      const email = req.body.email;
+      const checkEmail = await userModel.findEmail(email);
+      if (checkEmail.rowCount > 0) {
+        return commonHelper.response(res, null, 400, "Email already used");
+      }
+      const password = req.body.password;
+      const saltRounds = 10
+      const hashPassword = await bcrypt.hash(password, saltRounds);
+      const id = uuid.v4();
+      // console.log(req.body.fullname);
+      const payload = {
+        fullname: req.body.fullname,
+        email: req.body.email,
+        phone_number: req.body.phone_number,
+        password: hashPassword,
+        id: id,
+      };
+      console.log(payload);
+      const token = authHelper.generateToken(payload);
+      sendMail(token, req.body.email);
+      commonHelper.response(res, null, 200, "Check your email");
+    } catch (error) {
+      commonHelper.response(res, null, 500, error.detail);
+      console.log(error);
+    }
+  },
+
+  verifUser: async (req, res) => {
+    const token = req.params.id;
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.SECRET_KEY_JWT);
+    } catch (error) {
+      if (error && error.name === "JsonWebTokenError") {
+        return commonHelper.response(res, null, 401, "Token invalid");
+      } else if (error && error.name === "TokenExpiredError") {
+        return commonHelper.response(res, null, 403, "Token expired");
+      } else {
+        return commonHelper.response(res, null, 401, "Token not active");
+      }
+    }
+    try {
+      const result = await userModel.selectUserEmail(decoded.email);
+      if (result.rowCount > 0) {
+        return commonHelper.response(res, null, 400, "Email already verified");
+      }
+    } catch (err) {
+      console.log(err);
+      return commonHelper.response(res, null, 500, err.detail);
+    }
+    userModel
+      .insertUser(decoded)
+      .then((result) => {
+        // Display the result
+        return commonHelper.response(res, result.rows, 201, "User created");
+      })
+      .catch((err) => {
+        console.log(err);
+        return commonHelper.response(res, null, 400, err.detail);
+      });
   },
 };
 
