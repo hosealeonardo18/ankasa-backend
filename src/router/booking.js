@@ -9,7 +9,7 @@ const { verifyToken, isAdmin } = require("../middleware/auth");
 router.get("/",  bookingController.getAllBookings);
 router.get("/user", verifyToken, bookingController.getUserBooking);
 router.get("/:id", bookingController.getDetailBooking);
-router.post("/", verifyToken, bookingController.createBooking);
+router.post("/:id_flight", verifyToken, bookingController.createBooking);
 router.put("/:id", verifyToken, bookingController.updateBooking);
 router.delete("/:id", verifyToken, bookingController.deleteBooking);
 

@@ -100,50 +100,56 @@ const getDetailBooking = async (req, res) => {
 const createBooking = async (req, res) => {
     try {
         //Get requests
+        const id_flight = req.params.id_flight;
         const id_user = req.payload.id;
         const data = req.body;
         const passengers = req.body.passengers ? req.body.passengers : [];
-        let totalPrice = 0;
 
         //Get preffered credit card
         const creditCardResults = await creditCardModel.selectDetailCredit(id_user);
         if (!creditCardResults.rowCount) return commonHelper.response(res, result.rows, 404,
             "User doesn't have a credit card");
-
         const prefferedCreditCard = creditCardResults.rows.filter((value) => {
             if (value.preffered) return value
         })
+
+        //Get preffered credit card balance
         const id_credit_card = prefferedCreditCard[0].id;
         const creditCardBalance = prefferedCreditCard[0].balance;
 
-        const findFlight = await flightsModel.findId(data.id_flight);
+        //Find flight id
+        const findFlight = await flightsModel.findId(id_flight);
         if (!findFlight.rowCount) return commonHelper
             .response(res, null, 404, "Flight id not found");
-        const capacity = findFlight.rows[0].capacity
+
+        //Get flight current capacity
+        const capacity = parseInt(findFlight.rows[0].capacity);
+
         //Booking metadata
         data.id = uuidv4();
         data.id_user = id_user;
+        data.id_flight = id_flight;
         data.id_credit_card = id_credit_card;
         data.created_at = Date.now();
-        data.status = 1;
+        data.status = 1; //Waiting for payment
 
         //Calculate the total of ticket price
-        passengers.forEach((element) => {
+        let totalPrice = 0;
+        passengers.forEach(() => { 
             totalPrice += parseInt(findFlight.rows[0].price);
-            
         })
         if (data.insurance == true) totalPrice += 20000;
-        console.log(data.insurance)
-        console.log(totalPrice);
 
-`        // let newCapacity = 0;
-        // if ( < totalPrice) {
-        //     return commonHelper.response(res, null, 403, "Insufficient credit card balance");
-        // } else {
-        //     newBalance = creditCardBalance - totalPrice;
-        //     const creditCardResult = await creditCardModel.updateBalance(id_credit_card, newBalance)
-        // }`
+        //Subtract the flight's ticket capacity by the number of passengers
+        let newCapacity = 0;
+        if (capacity < passengers.length) {
+            return commonHelper.response(res, null, 403, "Passenger is more than flight's capacity");
+        } else {
+            newCapacity = capacity - passengers.length;
+            const flightResult = await flightsModel.updateCapacity(id_flight, newCapacity)
+        }
 
+        //Subtract the user's credit card balance by flight ticket price
         let newBalance = 0;
         if (creditCardBalance < totalPrice) {
             return commonHelper.response(res, null, 403, "Insufficient credit card balance");
@@ -151,6 +157,7 @@ const createBooking = async (req, res) => {
             newBalance = creditCardBalance - totalPrice;
             const creditCardResult = await creditCardModel.updateBalance(id_credit_card, newBalance)
         }
+
         //Insert booking to database
         const result = await bookingModel.insertBooking(data);
 
@@ -165,7 +172,7 @@ const createBooking = async (req, res) => {
 
         //Response
         commonHelper.response(res, result.rows, 200,
-            "Create booking successful, total ticket price is " + totalPrice + " , credit balance is " + newBalance);
+            "Create booking successful, total ticket price is " + totalPrice + " , credit balance is " + newBalance + ", new flight capacity is "+newCapacity);
     } catch (error) {
         console.log(error);
         commonHelper.response(res, null, 500, "Failed creating booking");
