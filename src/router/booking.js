@@ -7,8 +7,8 @@ const upload = require('../middleware/upload');
 const { verifyToken, isAdmin, isUser } = require("../middleware/auth");
 
 router.get("/", bookingController.getAllBookings);
-router.get("/:id", bookingController.getDetailBooking);
 router.get("/user", verifyToken, isUser, bookingController.getUserBooking);
+router.get("/:id", bookingController.getDetailBooking);
 router.post("/:id_flight", verifyToken, isUser, bookingController.createBooking);
 router.put("/:id", verifyToken, isAdmin, bookingController.updateBooking);
 router.delete("/:id", verifyToken, isAdmin, bookingController.deleteBooking);
