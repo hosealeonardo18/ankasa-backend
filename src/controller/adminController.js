@@ -52,7 +52,7 @@ const adminController = {
       let payload = {
         email: admin.email,
         id: admin.id, // add the user ID to the payload
-        role: "user", // role for middleware check
+        role: "admin", // role for middleware check
       };
       // console.log(payload)
       admin.token = authHelper.generateToken(payload);
