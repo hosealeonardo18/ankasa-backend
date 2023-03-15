@@ -50,7 +50,8 @@ create table city(
     id varchar(36) not null primary key,
     name varchar(20) not null,
     country varchar(20) not null,
-    image varchar default('city.png')
+    image varchar default('city.png'),
+    description text
 );
 
 create table airlines(
@@ -71,10 +72,10 @@ create table flights(
     city_departure_code varchar(4) not null,
     city_destination varchar(40) not null,
     city_destination_code varchar(4) not null,
-    date_departure date,
-    time_departure time,
-    date_arrival date,
-    time_arrival time,
+    date_departure date not null,
+    time_departure time not null,
+    date_arrival date not null,
+    time_arrival time not null,
     transit_count int not null,
     flight_trip int not null,
     flight_class int not null,
@@ -113,7 +114,10 @@ create table booking(
     foreign key (id_credit_card) references credit_card(id),
     insurance boolean default('true'),
     status int not null,
-    created_at timestamp
+    created_at timestamp,
+    booking_name varchar(40),
+    email varchar(60),
+    phone_number varchar(16)
 );
 
 create table passengers(
