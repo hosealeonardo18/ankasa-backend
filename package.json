@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/breadsticks64/ankasa-backend.git"
+    "url": "git+https://github.com/alifankebima/ankasa-backend.git"
   },
   "author": "Insan Cita Tech",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/breadsticks64/ankasa-backend/issues"
+    "url": "https://github.com/alifankebima/ankasa-backend/issues"
   },
-  "homepage": "https://github.com/breadsticks64/ankasa-backend#readme",
+  "homepage": "https://github.com/alifankebima/ankasa-backend#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",

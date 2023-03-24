@@ -53,50 +53,50 @@ const io = new Server(server, {
   },
 });
 
-io.use((socket, next) => {
-  const token = socket.handshake.query.token;
-  jwt.verify(token, process.env.SECRET_KEY_JWT, (err, decoded) => {
-    if (err) {
-      if (err.name === "JsonWebTokenError") {
-        next(createError(400, "token is invalid"));
-      } else if (err.name === "TokenExpiredError") {
-        next(createError(400, "token is expired"));
-      } else {
-        next(createError(400, "error occured"));
-      }
-    }
-    socket.userId = decoded.id;
-    socket.join(decoded.id);
-    next();
-  });
-});
+// io.use((socket, next) => {
+//   const token = socket.handshake.query.token;
+//   jwt.verify(token, process.env.SECRET_KEY_JWT, (err, decoded) => {
+//     if (err) {
+//       if (err.name === "JsonWebTokenError") {
+//         next(createError(400, "token is invalid"));
+//       } else if (err.name === "TokenExpiredError") {
+//         next(createError(400, "token is expired"));
+//       } else {
+//         next(createError(400, "error occured"));
+//       }
+//     }
+//     socket.userId = decoded.id;
+//     socket.join(decoded.id);
+//     next();
+//   });
+// });
 
-io.on("connection", (socket) => {
-  console.log(`device connected : ${socket.id} - ${socket.userId}`);
+// io.on("connection", (socket) => {
+//   console.log(`device connected : ${socket.id} - ${socket.userId}`);
 
-  socket.on("private-msg", (data, callback) => {
-    const newMessage = {
-      receiver: data.receiver,
-      message: data.msg,
-      sender: socket.userId,
-      date: moment(new Date()).format("LT"),
-    };
+//   socket.on("private-msg", (data, callback) => {
+//     const newMessage = {
+//       receiver: data.receiver,
+//       message: data.msg,
+//       sender: socket.userId,
+//       date: moment(new Date()).format("LT"),
+//     };
 
-    console.log(newMessage);
+//     console.log(newMessage);
 
-    callback(newMessage);
+//     callback(newMessage);
 
-    messageModel.newMessage(newMessage).then(() => {
-      socket.broadcast
-        .to(data.receiver)
-        .emit("private-msg-BE", { ...newMessage, date: new Date() });
-    });
-  });
+//     messageModel.newMessage(newMessage).then(() => {
+//       socket.broadcast
+//         .to(data.receiver)
+//         .emit("private-msg-BE", { ...newMessage, date: new Date() });
+//     });
+//   });
 
-  socket.on("disconnect", () => {
-    console.log(`device disconnected : ${socket.id}`);
-  });
-});
+//   socket.on("disconnect", () => {
+//     console.log(`device disconnected : ${socket.id}`);
+//   });
+// });
 
 // Listening port awaiting requests
 app.listen(port, () => {
