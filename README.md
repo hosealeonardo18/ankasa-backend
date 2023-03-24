@@ -1,5 +1,5 @@
 # ankasa-backend
-Ankasa-be is a RESTful API backend for interfacing ankasa relational database and providing API for ankasa frontend,
+Ankasa-backend is a RESTful API backend for interfacing ankasa relational database and providing API for ankasa frontend,
 ankasa is a website where users can search and buy flight ticket. 
 
 This repository also serves as a learning exercise at team collaboration and management.
