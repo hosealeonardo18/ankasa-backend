@@ -7,7 +7,7 @@ This repository also serves as a learning exercise at team collaboration and man
 ## Teams members
 This backend API is created by 3 backend team members and 1 support member, where each member have different tasks
 
-[@breadsticks64 (Alif Anke Bima Putra)] : 
+[@alifankebima (Alif Anke Bima Putra)] : 
 - Relational database design
 - Flights CRUD
 - Booking CRUD
@@ -40,7 +40,7 @@ Documentation files are provided in the [docs] folder
 
 ## Installation
 Follow this steps to run the server :
-1. Clone this repository with `git clone https://github.com/breadsticks64/ankasa-backend.git`
+1. Clone this repository with `git clone https://github.com/alifankebima/ankasa-backend.git`
 2. Change directory to ankasa-be with `cd ankasa-backend`
 3. Run `npm install` to install all of the required modules
 4. Create PostgreSQL database, query are provided in the [docs] folder
@@ -74,7 +74,7 @@ Run `npm run lint` for debugging errors in this repository
 [Postman API colletion]: <docs/ankasa-backend.postman_collection.json>
 [PostgreSQL Database Query]: <docs/ankasa-database-query.sql>
 [Database Diagram]: <docs/ankasa-database-diagram.drawio.png>
-[@breadsticks64 (Alif Anke Bima Putra)]: <https://www.github.com/breadsticks64>
+[@alifankebima (Alif Anke Bima Putra)]: <https://www.github.com/alifankebima>
 [@rrizalyuniar (R. Rizal Yuniar Sutono)]: <https://github.com/rrizalyuniar>
 [@andkvnt (Andiko Oktavianto)]: <https://www.github.com/andkvnt>
 [@iqbalapredo24 (Muhamad Iqbal Aprido)]: <https://github.com/iqbalapredo24>
