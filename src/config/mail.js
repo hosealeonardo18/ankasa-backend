@@ -18,7 +18,7 @@ function sendMail(token, email) {
         from: process.env.EMAIL_SENDER, // sender address
         to: email, // list of receivers
         subject: "Ankasa App Activation Link", // Subject line
-        html: `<b>https://tesverif.vercel.app/user/verif?token=${token}</b>`, // html body
+        html: `<b>https://insancitaticket.vercel.app/user/verif?token=${token}</b>`, // html body
     });
     return;
 }
