@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const bookingController = require("../controller/booking");
-// const {validate} = require('../middleware/common')
-// const {protect} = require('../middleware/auth')
-const upload = require('../middleware/upload');
 const { verifyToken, isAdmin, isUser } = require("../middleware/auth");
 
 router.get("/", bookingController.getAllBookings);

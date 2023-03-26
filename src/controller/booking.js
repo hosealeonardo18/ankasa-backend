@@ -8,7 +8,6 @@ const flightsModel = require("../model/flights");
 const getAllBookings = async (req, res) => {
     try {
         //Search and pagination query
-        const filter = req.query.filter || 'name';
         const searchQuery = req.query.search || '';
         const sortBy = req.query.sortBy || 'name';
         const sort = req.query.sort || 'asc';
@@ -20,7 +19,7 @@ const getAllBookings = async (req, res) => {
         const results = await bookingModel
             .selectAllBooking(searchQuery, sortBy, sort, limit, offset);
 
-        //Return not found if there's no workers in database
+        //Return not found if there's no booking in database
         if (!results.rowCount) return commonHelper
             .response(res, null, 404, "Bookings not found");
 
@@ -54,7 +53,7 @@ const getUserBooking = async (req, res) => {
         //Get all bookings from database
         const results = await bookingModel.selectUserBooking(id_user, searchQuery, sortBy, sort, limit, offset)
 
-        //Return not found if there's no workers in database
+        //Return not found if there's no booking in database
         if (!results.rowCount) return commonHelper
             .response(res, null, 404, "User booking not found");
 
@@ -145,7 +144,7 @@ const createBooking = async (req, res) => {
             return commonHelper.response(res, null, 403, "Passenger is more than flight's capacity");
         } else {
             newCapacity = capacity - passengers.length;
-            const flightResult = await flightsModel.updateCapacity(id_flight, newCapacity)
+            await flightsModel.updateCapacity(id_flight, newCapacity)
         }
 
         //Subtract the user's credit card balance by flight ticket price
@@ -154,7 +153,7 @@ const createBooking = async (req, res) => {
             return commonHelper.response(res, null, 403, "Insufficient credit card balance");
         } else {
             newBalance = creditCardBalance - totalPrice;
-            const creditCardResult = await creditCardModel.updateBalance(id_credit_card, newBalance)
+            await creditCardModel.updateBalance(id_credit_card, newBalance)
         }
 
         //Insert booking to database
@@ -166,12 +165,11 @@ const createBooking = async (req, res) => {
             element.id = uuidv4();
             element.id_booking = id_booking;
             element.passenger_type = element.passenger_type ? element.passenger_type : 1;
-            const passengersResult = await passengersModel.insertPassengers(element);
+            await passengersModel.insertPassengers(element);
         });
 
         //Response
-        commonHelper.response(res, result.rows, 200,
-            "Create booking successful, total ticket price is " + totalPrice + " , credit balance is " + newBalance + ", new flight capacity is "+newCapacity);
+        commonHelper.response(res, result.rows, 200, "Create booking successful");
     } catch (error) {
         console.log(error);
         commonHelper.response(res, null, 500, "Failed creating booking");

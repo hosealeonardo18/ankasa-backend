@@ -34,4 +34,7 @@ router.use('/booking', bookingRouter);
 const reviewsRoute = require('./reviewsRoute');
 router.use('/review', reviewsRoute);
 
+const passengerRoute = require('./passenger');
+router.use('/passenger', passengerRoute)
+
 module.exports = router;
