@@ -1,16 +1,16 @@
 const bookingModel = require("../model/booking");
 const creditCardModel = require("../model/creditCard");
 const passengersModel = require("../model/passengers");
+const flightsModel = require("../model/flights");
 const commonHelper = require("../helper/common");
 const { v4: uuidv4 } = require("uuid");
-const flightsModel = require("../model/flights");
 
 const getAllBookings = async (req, res) => {
     try {
         //Search and pagination query
         const searchQuery = req.query.search || '';
-        const sortBy = req.query.sortBy || 'name';
-        const sort = req.query.sort || 'asc';
+        const sortBy = req.query.sortBy || 'created_at';
+        const sort = req.query.sort || 'desc';
         const limit = Number(req.query.limit) || 6;
         const page = Number(req.query.page) || 1;
         const offset = (page - 1) * limit;

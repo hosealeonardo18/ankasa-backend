@@ -95,7 +95,6 @@ const creditCardController = {
             }
             const data = { id, fullname, credit_number, expire, cvv, balance };
             data.id_user = id_user;
-            console.log(data);
             const result = await updateCredit(data)
             commonHelper.response(res, result.rows, 201, "Credit card updated");
         } catch (error) {

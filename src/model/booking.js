@@ -15,7 +15,8 @@ const selectAllBooking = (search, sortBY, sort, limit, offset) => {
 const selectUserBooking = (id_user, search, sortBY, sort, limit, offset) => {
     return Pool.query(`select booking.*, jsonb_agg(passengers.*) as passengers 
         from booking left join passengers on booking.id = passengers.id_booking
-        WHERE booking.id_user='${id_user}' ${search?`and booking.status = ${search}`:""} group by booking.id`);
+        WHERE booking.id_user='${id_user}' ${search?`and 
+        booking.status = ${search}`:""} group by booking.id`);
 };
 
 const selectDetailBooking = (id) => {

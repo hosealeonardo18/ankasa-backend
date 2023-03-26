@@ -8,10 +8,10 @@ const {
   countData,
   findId,
 } = require("../model/airlines");
+const googleDrive = require("../config/googleDrive");
 
 const commonHelper = require("../helper/common");
 const { v4: uuidv4 } = require("uuid");
-var cloudinary = require("../config/cloudinary");
 
 const airlinesController = {
   getAllAirlines: async (req, res) => {
@@ -62,17 +62,20 @@ const airlinesController = {
         availability = true;
       }
       const id = uuidv4();
-      const result = await cloudinary.uploader.upload(req.file.path);
-      const image = result.secure_url;
+
+      // Google Drive
+      const uploadResult = await googleDrive.uploadImage(req.file)
+      const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
+      const image = parentPath.concat(uploadResult.id)
+
       const data = { id, name, email, image, website, phone_number, availability };
-      console.log(data);
 
       const result2 = insertAirlines(data)
 
       commonHelper.response(res, result2.rows, 201, "Airlines created");
     } catch (error) {
       console.log(error)
-      commonHelper.response(res, result.rows, 500, "Failed getting airlines");
+      commonHelper.response(res, null, 500, "Failed getting airlines");
     }
   },
 
@@ -82,8 +85,19 @@ const airlinesController = {
     if (availability == undefined) {
       availability = true;
     }
-    const result = await cloudinary.uploader.upload(req.file.path);
-    const image = result.secure_url;
+    let image = "";
+    const oldAirline = await selectDetailAirlines(id)
+
+    if (req.file) {
+      const oldPhoto = oldAirline.rows[0].image;
+      const oldPhotoId = oldPhoto.split("=")[1];
+      const updateResult = await updatePhoto(req.file, oldPhotoId)
+      const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
+      image = parentPath.concat(updateResult.id)
+    } else {
+      image = oldAirline.rows[0].image;
+    }
+
     const { rowCount } = await findId(id);
     if (!rowCount) {
       return res.json({
@@ -93,7 +107,6 @@ const airlinesController = {
     const data = { id, name, email, image, website, phone_number, availability };
     updateAirlines(data)
       .then((result) => {
-        console.log(result);
         commonHelper.response(res, result.rows, 200, "Airline updated");
       })
       .catch((err) => res.status(500).json(err));
@@ -121,8 +134,13 @@ const airlinesController = {
     if (!rowCount) {
       res.json({ message: "ID is Not Found" });
     }
+    const oldAirline = await selectDetailAirlines(id);
+    const oldPhoto = oldAirline.rows[0].image;
+    const oldPhotoId = oldPhoto.split("=")[1];
+    await googleDrive.deleteImage(oldPhotoId)
     deleteAirlines(id)
       .then((result) => {
+        
         commonHelper.response(res, result.rows, 200, "Airlines deleted")
       })
       .catch((err) => res.send(err));
