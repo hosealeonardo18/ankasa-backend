@@ -26,8 +26,9 @@ const adminController = {
       };
       const result = await adminModel.insertAdmin(data);
       commonHelper.response(res, result.rows, 201, "Register has been success");
-    } catch (err) {
-      res.send(err);
+    } catch (error) {
+      console.log(error);
+      commonHelper.response(res, null, 500, "Failed registering admin");
     }
   },
 
@@ -54,12 +55,12 @@ const adminController = {
         id: admin.id, // add the user ID to the payload
         role: "admin", // role for middleware check
       };
-      // console.log(payload)
       admin.token = authHelper.generateToken(payload);
       admin.refreshToken = authHelper.generateRefreshToken(payload);
       commonHelper.response(res, admin, 201, "login is successful");
-    } catch (err) {
-      res.send(err);
+    } catch (error) {
+      console.log(error);
+      commonHelper.response(res, null, 500, "Failed log in as admin");
     }
   },
 
@@ -83,7 +84,8 @@ const adminController = {
         "Get refresh token is successful"
       );
     } catch (error) {
-      res.send(error);
+      console.log(error);
+      commonHelper.response(res, null, 500, "Failed generation refresh token");
     }
   },
 
@@ -99,10 +101,10 @@ const adminController = {
         return commonHelper.response(res, null, 404, "User not found");
 
       delete admin.password;
-      commonHelper.response(res, user, 200, "Get data profile is successful");
+      commonHelper.response(res, admin, 200, "Get data profile is successful");
     } catch (error) {
       console.log(error);
-      res.send(error);
+      commonHelper.response(res, null, 500, "Failed getting admin profile");
     }
   },
   selectAllAdmin: async (req, res) => {
@@ -114,15 +116,16 @@ const adminController = {
       // const limit = Number(req.query.limit) || 10;
       // const offset = (page - 1) * limit;
       const result = await adminModel.getAllAdmin();
-      console.log(result);
-      const { rows: [count], } = await adminModel.countData();
-      const totalData = parseInt(count.count);
-      const pagination = {
-        totalData: totalData,
-      };
-      commonHelper.response(res, result.rows, 200, "get data succes", pagination);
+
+      // const { rows: [count], } = await adminModel.countData();
+      // const totalData = parseInt(count.count);
+      // const pagination = {
+      //   totalData: totalData,
+      // };
+      commonHelper.response(res, result.rows, 200, "get all admins succes");
     } catch (error) {
       console.log(error);
+      commonHelper.response(res, null, 500, "Failed getting all admins");
     }
   },
 };

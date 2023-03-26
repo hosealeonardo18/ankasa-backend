@@ -68,7 +68,6 @@ Run `npm run lint` for debugging errors in this repository
 | [Multer] | multipart/form-data handling |
 | [Path] | Directory and file path handling |
 | [UUID] | UUID Generator |
-| [Socket.io] | Realtime communication for chat |
 
 [docs]: <docs>
 [Postman API colletion]: <docs/ankasa-backend.postman_collection.json>
@@ -94,4 +93,3 @@ Run `npm run lint` for debugging errors in this repository
 [Multer]: <https://github.com/expressjs/multer>
 [Path]: <https://github.com/jinder/path>
 [UUID]: <https://github.com/uuidjs/uuid>
-[Socket.io]: <https://socket.io/>
