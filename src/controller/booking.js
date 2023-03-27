@@ -43,28 +43,28 @@ const getUserBooking = async (req, res) => {
         const id_user = req.payload.id;
 
         //Search and pagination query
-        const searchQuery = req.query.search || '';
-        const sortBy = req.query.sortBy || 'name';
-        const sort = req.query.sort || 'asc';
-        const limit = Number(req.query.limit) || 6;
-        const page = Number(req.query.page) || 1;
-        const offset = (page - 1) * limit;
+        // const searchQuery = req.query.search || '';
+        // const sortBy = req.query.sortBy || 'name';
+        // const sort = req.query.sort || 'asc';
+        // const limit = Number(req.query.limit) || 6;
+        // const page = Number(req.query.page) || 1;
+        // const offset = (page - 1) * limit;
 
         //Get all bookings from database
-        const results = await bookingModel.selectUserBooking(id_user, searchQuery)
+        const results = await bookingModel.selectUserBooking(id_user)
 
         //Return not found if there's no booking in database
         if (!results.rowCount) return commonHelper
             .response(res, null, 404, "User booking not found");
 
         //Pagination info
-        const totalData = Number(results.rowCount);
-        const totalPage = Math.ceil(totalData / limit);
-        const pagination = { currentPage: page, limit, totalData, totalPage };
+        // const totalData = Number(results.rowCount);
+        // const totalPage = Math.ceil(totalData / limit);
+        // const pagination = { currentPage: page, limit, totalData, totalPage };
 
         //Response
         commonHelper.response(res, results.rows, 200,
-            "Get all user booking successful", pagination);
+            "Get all user booking successful");
     } catch (error) {
         console.log(error);
         commonHelper.response(res, null, 500, "Failed getting user booking");
@@ -121,7 +121,7 @@ const createBooking = async (req, res) => {
             .response(res, null, 404, "Flight id not found");
 
         //Get flight current capacity
-        const capacity = parseInt(findFlight.rows[0].capacity);
+        // const capacity = parseInt(findFlight.rows[0].capacity);
 
         //Booking metadata
         data.id = uuidv4();

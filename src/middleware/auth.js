@@ -79,7 +79,7 @@ const isUser = (req, res, next) => {
 const isSuperAdmin = (req, res, next) => {
   const payload = req.payload;
   if (payload) {
-    if (payload.role === "super admin") {
+    if (payload.role === "super_admin") {
       next();
     } else {
       commonHelper.response(res, null, 403,

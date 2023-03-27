@@ -28,7 +28,7 @@ app.all("*", (req, res, next) => {
 });
 
 // Error code and message
-app.use((err, req, res, next) => {
+app.use((err, req, res, next) => { // eslint-disable-line
     const errorMessage = err.message || "Internal server error";
     const statusCode = err.status || 500;
 
