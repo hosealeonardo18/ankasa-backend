@@ -1,13 +1,4 @@
-const {
-  selectAllAirlines,
-  selectDetailAirlines,
-  insertAirlines,
-  updateAirlines,
-  setAirlineAvailability,
-  deleteAirlines,
-  countData,
-  findId,
-} = require("../model/airlines");
+const airlineModel = require("../model/airlines");
 const googleDrive = require("../config/googleDrive");
 
 const commonHelper = require("../helper/common");
@@ -22,8 +13,8 @@ const airlinesController = {
       const page = Number(req.query.page) || 1;
       const limit = Number(req.query.limit) || 10;
       const offset = (page - 1) * limit;
-      const result = await selectAllAirlines(search, sortBY, sort, limit, offset);
-      const { rows: [count], } = await countData();
+      const result = await airlineModel.selectAllAirlines(search, sortBY, sort, limit, offset);
+      const { rows: [count], } = await airlineModel.countData();
       const totalData = parseInt(count.count);
       const totalPage = Math.ceil(totalData / limit);
       const pagination = {
@@ -41,13 +32,13 @@ const airlinesController = {
   getDetailAirlines: async (req, res) => {
     try {
       const id = req.params.id;
-      const { rowCount } = await findId(id);
+      const { rowCount } = await airlineModel.findId(id);
       if (!rowCount) {
         return res.json({
           Message: "data not found",
         });
       }
-      const result = await selectDetailAirlines(id)
+      const result = await airlineModel.selectDetailAirlines(id)
       commonHelper.response(res, result.rows, 200, "get data by id success");
 
     } catch (error) {
@@ -70,7 +61,7 @@ const airlinesController = {
 
       const data = { id, name, email, image, website, phone_number, availability };
 
-      const result2 = insertAirlines(data)
+      const result2 = airlineModel.insertAirlines(data)
 
       commonHelper.response(res, result2.rows, 201, "Airlines created");
     } catch (error) {
@@ -87,7 +78,7 @@ const airlinesController = {
         availability = true;
       }
       let image = "";
-      const oldAirline = await selectDetailAirlines(id)
+      const oldAirline = await airlineModel.selectDetailAirlines(id)
 
       if (req.file) {
         const oldPhoto = oldAirline.rows[0].image;
@@ -99,14 +90,14 @@ const airlinesController = {
         image = oldAirline.rows[0].image;
       }
 
-      const { rowCount } = await findId(id);
+      const { rowCount } = await airlineModel.findId(id);
       if (!rowCount) {
         return res.json({
           Message: "data not found",
         });
       }
       const data = { id, name, email, image, website, phone_number, availability };
-      const result = await updateAirlines(data);
+      const result = await airlineModel.updateAirlines(data);
 
       commonHelper.response(res, result.rows, 201, "Airline updated");
     } catch (error) {
@@ -119,14 +110,14 @@ const airlinesController = {
       const id = req.params.id;
       let { availability } = req.body;
   
-      const { rowCount } = await findId(id);
+      const { rowCount } = await airlineModel.findId(id);
       if (!rowCount) {
         return res.json({
           Message: "data not found",
         });
       }
       const data = { id, availability }
-      const result = await setAirlineAvailability(data)
+      const result = await airlineModel.setAirlineAvailability(data)
       commonHelper.response(res, result.rows, 200, "Airline status updated");
     } catch (error) {
       console.log(error)
@@ -136,15 +127,15 @@ const airlinesController = {
   deleteAirlines: async (req, res) => {
     try {
       const id = req.params.id;
-      const { rowCount } = await findId(id);
+      const { rowCount } = await airlineModel.findId(id);
       if (!rowCount) {
         res.json({ message: "ID is Not Found" });
       }
-      const oldAirline = await selectDetailAirlines(id);
+      const oldAirline = await airlineModel.selectDetailAirlines(id);
       const oldPhoto = oldAirline.rows[0].image;
       const oldPhotoId = oldPhoto.split("=")[1];
       await googleDrive.deleteImage(oldPhotoId)
-      const result = await deleteAirlines(id)
+      const result = await airlineModel.deleteAirlines(id)
       commonHelper.response(res, result.rows, 200, "Airline deleted")
     } catch (error) {
       console.log(error)
