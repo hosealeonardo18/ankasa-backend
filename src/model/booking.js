@@ -7,11 +7,10 @@ const selectAllBooking = (search, sortBY, sort, limit, offset) => {
         airlines.name, flights.code, jsonb_agg(passengers.*) as passengers 
         from booking left join passengers on booking.id = passengers.id_booking 
         inner join flights on booking.id_flight = flights.id inner join 
-        airlines on flights.id_airline = airlines.id group by booking.id, 
+        airlines on flights.id_airline = airlines.id WHERE booking.booking_name ILIKE '%${search}%' group by booking.id, 
         flights.id_airline, flights.date_departure, flights.time_departure, 
         flights.city_departure_code, flights.city_destination_code, airlines.name, 
-        flights.code WHERE booking.booking_name ILIKE '%${search}%' 
-        ORDER BY ${sortBY} ${sort} LIMIT ${limit} OFFSET ${offset}`);
+        flights.code ORDER BY ${sortBY} ${sort} LIMIT ${limit} OFFSET ${offset}`);
 };
 
 const selectUserBooking = (id_user, search) => {
