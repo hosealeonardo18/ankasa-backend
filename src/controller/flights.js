@@ -1,11 +1,4 @@
-const {
-  selectAllFlights,
-  selectDetailFlights,
-  insertFlights,
-  updateFlights,
-  deleteFlights,
-  findId,
-} = require("../model/flights");
+const flightModel = require("../model/flights")
 
 const commonHelper = require("../helper/common");
 const { v4: uuidv4 } = require("uuid");
@@ -41,7 +34,7 @@ const flightsController = {
         deptDate, deptTimeStart, deptTimeEnd, arrivalTimeStart, arrivalTimeEnd,
         person, airline, ticketPriceStart, ticketPriceEnd, sortBY, sort, limit, offset
       }
-      const result = await selectAllFlights(data);
+      const result = await flightModel.selectAllFlights(data);
 
       if (!result.rowCount) return commonHelper.response(res, null, 404, "flight not found");
 
@@ -62,13 +55,13 @@ const flightsController = {
   getDetailFlights: async (req, res) => {
     try {
       const id = req.params.id;
-      const { rowCount } = await findId(id);
+      const { rowCount } = await flightModel.findId(id);
       if (!rowCount) {
         return res.json({
           Message: "data not found",
         });
       }
-      const result = await selectDetailFlights(id)
+      const result = await flightModel.selectDetailFlights(id)
       commonHelper.response(res, result.rows, 200, "get data by id success");
     } catch (error) {
       console.log(error);
@@ -81,7 +74,7 @@ const flightsController = {
       data.id = uuidv4();
       data.created_at = Date.now();
       data.updated_at = Date.now();
-      insertFlights(data)
+      flightModel.insertFlights(data)
         .then((result) => {
           commonHelper.response(res, result.rows, 201, "Flights created");
         })
@@ -94,7 +87,7 @@ const flightsController = {
   updateFlights: async (req, res) => {
     const id = req.params.id;
     const data = req.body;
-    const { rowCount } = await findId(id);
+    const { rowCount } = await flightModel.findId(id);
     if (!rowCount) {
       return res.json({
         Message: "data not found",
@@ -102,7 +95,7 @@ const flightsController = {
     }
     data.id = id;
     data.updated_at = Date.now();
-    updateFlights(data)
+    flightModel.updateFlights(data)
       .then((result) => {
         commonHelper.response(res, result.rows, 200, "Flight updated");
       })
@@ -110,11 +103,11 @@ const flightsController = {
   },
   deleteFlights: async (req, res) => {
     const id = req.params.id;
-    const { rowCount } = await findId(id);
+    const { rowCount } = await flightModel.findId(id);
     if (!rowCount) {
       res.json({ message: "ID is Not Found" });
     }
-    deleteFlights(id)
+    flightModel.deleteFlights(id)
       .then((result) => {
         commonHelper.response(res, result.rows, 200, "Flights deleted")
       })

@@ -1,13 +1,5 @@
-const {
-    selectAllCity,
-    selectDetailCity,
-    insertCity,
-    updateCity,
-    deleteCity,
-    countData,
-    findId,
-} = require("../model/city");
-
+const cityModel = require("../model/city");
+const googleDrive = require("../config/googleDrive");
 const commonHelper = require("../helper/common");
 const { v4: uuidv4 } = require("uuid");
 var cloudinary = require("../config/cloudinary");
@@ -21,8 +13,8 @@ const cityController = {
             const page = Number(req.query.page) || 1;
             const limit = Number(req.query.limit) || 10;
             const offset = (page - 1) * limit;
-            const result = await selectAllCity(search, sortBY, sort, limit, offset);
-            const { rows: [count], } = await countData();
+            const result = await cityModel.selectAllCity(search, sortBY, sort, limit, offset);
+            const { rows: [count], } = await cityModel.countData();
             const totalData = parseInt(count.count);
             const totalPage = Math.ceil(totalData / limit);
             const pagination = {
@@ -40,13 +32,13 @@ const cityController = {
     getDetailCity: async (req, res) => {
         try {
             const id = req.params.id;
-            const { rowCount } = await findId(id);
+            const { rowCount } = await cityModel.findId(id);
             if (!rowCount) {
                 return res.json({
                     Message: "data not found",
                 });
             }
-            const result = await selectDetailCity(id)
+            const result = await cityModel.selectDetailCity(id)
             commonHelper.response(res, result.rows, 200, "get data by id success");
         } catch (error) {
             console.log(error);
@@ -57,10 +49,14 @@ const cityController = {
         try {
             const { name, country, description } = req.body;
             const id = uuidv4();
-            const result = await cloudinary.uploader.upload(req.file.path)
-            const image = result.secure_url;
+
+            // Google drive
+            const uploadResult = await googleDrive.uploadImage(req.file)
+            const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
+            const image = parentPath.concat(uploadResult.id);
+
             const data = { id, name, country, image, description };
-            const result2 = await insertCity(data)
+            const result2 = await cityModel.insertCity(data)
             commonHelper.response(res, result2.rows, 201, "City created");
         } catch (error) {
             console.log(error)
@@ -71,16 +67,29 @@ const cityController = {
         try {
             const id = req.params.id;
             const { name, country, description } = req.body;
-            const result = await cloudinary.uploader.upload(req.file.path)
-            const image = result.secure_url;
-            const { rowCount } = await findId(id);
-            if (!rowCount) {
+            // const result = await cloudinary.uploader.upload(req.file.path)
+            // const image = result.secure_url;
+            const result = await cityModel.findId(id);
+            if (!result.rowCount) {
                 return res.json({
                     Message: "data not found",
                 });
             }
+
+            // Google drive
+            let image = "";
+            if (req.file) {
+                const oldPhoto = result.rows[0].image;
+                const oldPhotoId = oldPhoto.split("=")[1];
+                const updateResult = await googleDrive.updateImage(req.file, oldPhotoId)
+                const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
+                image = parentPath.concat(updateResult.id);
+            } else {
+                image = result.rows[0].image;
+            }
+
             const data = { id, name, country, image, description };
-            const result2 = await updateCity(data);
+            const result2 = await cityModel.updateCity(data);
 
             commonHelper.response(res, result2.rows, 200, "City updated");
         } catch (error) {
@@ -91,12 +100,18 @@ const cityController = {
     deleteCity: async (req, res) => {
         try {
             const id = req.params.id;
-            const { rowCount } = await findId(id);
+            const result = await cityModel.findId(id);
             if (!rowCount) {
-                res.json({ message: "ID is Not Found" });
+                return res.json({ message: "ID is Not Found" });
             }
-            const result = await deleteCity(id)
-            commonHelper.response(res, result.rows, 200, "City deleted")
+
+            // Google drive
+            const oldImage = result.rows[0].image;
+            const oldImageid = oldImage.split("=")[1];
+            await googleDrive.deleteImage(oldImageid);
+
+            const result2 = await cityModel.deleteCity(id)
+            commonHelper.response(res, result2.rows, 200, "City deleted")
         } catch (error) {
             console.log(error)
             commonHelper.response(res, null, 500, "Failed deleting city")

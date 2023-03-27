@@ -8,8 +8,8 @@ function sendMail(token, email) {
         port: 587,
         secure: false,
         auth: {
-            user: process.env.EMAIL_SENDER, // generated ethereal user
-            pass: process.env.EMAIL_SENDER_PASSWORD, // generated ethereal password
+            user: process.env.NODEMAILER_EMAIL_ADDRESS, // generated ethereal user
+            pass: process.env.NODEMAILER_EMAIL_PASSWORD, // generated ethereal password
         },
     });
 
@@ -18,7 +18,7 @@ function sendMail(token, email) {
         from: process.env.EMAIL_SENDER, // sender address
         to: email, // list of receivers
         subject: "Ankasa App Activation Link", // Subject line
-        html: `<b>https://insancitaticket.vercel.app/user/verif?token=${token}</b>`, // html body
+        html: `<b>${process.env.NODEMAILER_FRONTEND_URL}/user/verif?token=${token}</b>`, // html body
     });
     return;
 }

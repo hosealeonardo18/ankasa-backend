@@ -112,22 +112,22 @@ const adminController = {
         return commonHelper.response(res, null, 404, "User not found");
 
       delete admin.password;
-      const airline_crud = req.payload.airline;
-      const flight_crud = req.payload.airline;
-      const booking_crud = req.payload.airline;
-      const city_crud = req.payload.airline;
-      if (airline_crud == false) {
-        delete admin.airline_crud;
-      }
-      if (flight_crud == false) {
-        delete admin.flight_crud;
-      }
-      if (booking_crud == false) {
-        delete admin.booking_crud;
-      }
-      if (city_crud == false) {
-        delete admin.city_crud;
-      }
+      // const airline_crud = req.payload.airline;
+      // const flight_crud = req.payload.airline;
+      // const booking_crud = req.payload.airline;
+      // const city_crud = req.payload.airline;
+      // if (airline_crud == false) {
+      //   delete admin.airline_crud;
+      // }
+      // if (flight_crud == false) {
+      //   delete admin.flight_crud;
+      // }
+      // if (booking_crud == false) {
+      //   delete admin.booking_crud;
+      // }
+      // if (city_crud == false) {
+      //   delete admin.city_crud;
+      // }
       commonHelper.response(res, admin, 200, "Get data profile is successful");
     } catch (error) {
       console.log(error);
