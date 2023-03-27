@@ -1,32 +1,42 @@
 const Pool = require('../config/db');
 
 const selectAllBooking = (search, sortBY, sort, limit, offset) => {
-    return Pool.query(`select users.fullname, booking.*, flights.city_departure_code, 
-        flights.city_destination_code, flights.code, flights.flight_class, 
-        flights.terminal, flights.gate, flights.date_departure, 
-        flights.time_departure, airlines.name AS "airline", airlines.image 
-        FROM booking inner join flights on booking.id_flight = flights.id 
-        inner join airlines on flights.id_airline = airlines.id inner join 
-        users on booking.id_user = users.id WHERE 
-        name ILIKE '%${search}%' ORDER BY ${sortBY} ${sort} LIMIT ${limit} 
-        OFFSET ${offset}`);
+    return Pool.query(`select booking.*, flights.id_airline, 
+        flights.date_departure, flights.time_departure, 
+        flights.city_departure_code, flights.city_destination_code, 
+        airlines.name, flights.code, jsonb_agg(passengers.*) as passengers 
+        from booking left join passengers on booking.id = passengers.id_booking 
+        inner join flights on booking.id_flight = flights.id inner join 
+        airlines on flights.id_airline = airlines.id WHERE booking.booking_name ILIKE '%${search}%' group by booking.id, 
+        flights.id_airline, flights.date_departure, flights.time_departure, 
+        flights.city_departure_code, flights.city_destination_code, airlines.name, 
+        flights.code ORDER BY ${sortBY} ${sort} LIMIT ${limit} OFFSET ${offset}`);
 };
 
-const selectUserBooking = (id_user, search, sortBY, sort, limit, offset) => {
-    return Pool.query(`select booking.*, jsonb_agg(passengers.*) as passengers 
-        from booking left join passengers on booking.id = passengers.id_booking
-        WHERE booking.id_user='${id_user}' ${search?`and 
-        booking.status = ${search}`:""} group by booking.id`);
+const selectUserBooking = (id_user, search) => {
+    return Pool.query(`select booking.*, flights.id_airline, 
+    flights.date_departure, flights.time_departure, 
+    flights.city_departure_code, flights.city_destination_code, 
+    airlines.name, flights.code, jsonb_agg(passengers.*) as passengers 
+    from booking left join passengers on booking.id = passengers.id_booking 
+    inner join flights on booking.id_flight = flights.id inner join 
+    airlines on flights.id_airline = airlines.id where booking.id_user='${id_user}' group by booking.id, 
+    flights.id_airline, flights.date_departure, flights.time_departure, 
+    flights.city_departure_code, flights.city_destination_code, airlines.name, 
+    flights.code`);
 };
 
 const selectDetailBooking = (id) => {
-    return Pool.query(`select users.fullname, booking.*, flights.city_departure_code, 
-        flights.city_destination_code, flights.code, flights.flight_class, 
-        flights.terminal, flights.gate, flights.date_departure, 
-        flights.time_departure, airlines.name AS "airline", airlines.image 
-        FROM booking inner join flights on booking.id_flight = flights.id 
-        inner join airlines on flights.id_airline = airlines.id inner join 
-        users on booking.id_user = users.id WHERE booking.id='${id}'`);
+    return Pool.query(`select booking.*, flights.id_airline, 
+    flights.date_departure, flights.time_departure, 
+    flights.city_departure_code, flights.city_destination_code, 
+    airlines.name, flights.code, jsonb_agg(passengers.*) as passengers 
+    from booking left join passengers on booking.id = passengers.id_booking 
+    inner join flights on booking.id_flight = flights.id inner join 
+    airlines on flights.id_airline = airlines.id WHERE booking.id='${id}' group by booking.id, 
+    flights.id_airline, flights.date_departure, flights.time_departure, 
+    flights.city_departure_code, flights.city_destination_code, airlines.name, 
+    flights.code`);
 };
 
 const insertBooking = (data) => {

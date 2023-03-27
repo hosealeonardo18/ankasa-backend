@@ -15,7 +15,7 @@ const selectDetailPassengers = (id) => {
         flights.city_departure_code, flights.city_destination_code, 
         flights.code, flights.flight_class, flights.terminal, flights.gate, 
         flights.date_departure, flights.time_departure from passengers 
-        inner join booking on booking.id = passengers.id_booking inner join 
+        right join booking on booking.id = passengers.id_booking inner join 
         flights on booking.id_flight = flights.id inner join airlines on 
         flights.id_airline = airlines.id where passengers.id='${id}'`);
 };
@@ -24,15 +24,14 @@ const insertPassengers = (data) => {
     const { id, id_booking, title, fullname, nationality, passenger_type,
         seat } = data;
     return Pool.query(`INSERT INTO passengers VALUES('${id}', '${id_booking}', 
-        '${title}','${fullname}', '${nationality}', '${passenger_type}', 
-        '${seat}')`);
+        '${title}','${fullname}', '${nationality}', '${passenger_type}')`);
 };
 
 const updatePassengers = (data) => {
     const { id, title, fullname, nationality, passenger_type, seat } = data;
     return Pool.query(`UPDATE passengers title='${title}', 
         fullname='${fullname}', nationality='${nationality}', 
-        passengers_type='${passenger_type}', seat='${seat}' WHERE id='${id}'`);
+        passengers_type='${passenger_type}' WHERE id='${id}'`);
 };
 
 const deletePassengers = (id) => {
