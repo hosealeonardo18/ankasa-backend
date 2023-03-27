@@ -18,7 +18,7 @@ function sendMail(token, email) {
         from: process.env.EMAIL_SENDER, // sender address
         to: email, // list of receivers
         subject: "Ankasa App Activation Link", // Subject line
-        html: `<b>${process.env.NODEMAILER_FRONTEND_URL}/user/verif?token=${token}</b>`, // html body
+        html: `<b>${process.env.NODEMAILER_FRONTEND_URL}/verifEmail?token=${token}</b>`, // html body
     });
     return;
 }

@@ -46,10 +46,11 @@ const isIdValid = (req, res, next) => {
 };
 
 //Checks if role in payload (login auth token) is admin
+//Super admin also have the same priviliges as admin
 const isAdmin = (req, res, next) => {
   const payload = req.payload;
   if (payload) {
-    if (payload.role === "admin") {
+    if (payload.role === "admin" || payload.role === "super_admin") {
       next();
     } else {
       commonHelper.response(res, null, 403,
