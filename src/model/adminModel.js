@@ -10,15 +10,15 @@ const findEmail = (email) => {
 
 const insertAdmin = async (data) => {
   return await Pool.query(
-    "INSERT INTO admin (id, email, password, admin_role, airline_crud, flight_crud, booking_crud, city_crud) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
-    [data.id, data.email, data.password, data.admin_role, data.airline_crud, data.flight_crud, data.booking_crud, data.city_crud]
+    "INSERT INTO admin (id, fullname, email, password, admin_role, admin_status, airline_crud, flight_crud, booking_crud, city_crud) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+    [data.id, data.fullname, data.email, data.password, data.admin_role, data.admin_status, data.airline_crud, data.flight_crud, data.booking_crud, data.city_crud]
   );
 };
 
 const createSuperAdmin = async (data) => {
   return await Pool.query(
-    "INSERT INTO admin (id, email, password, admin_role, airline_crud, flight_crud, booking_crud, city_crud) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
-    [data.id, data.email, data.password, data.admin_role, data.airline_crud, data.flight_crud, data.booking_crud, data.city_crud]
+    "INSERT INTO admin (id, fullname, email, password, admin_role, admin_status, airline_crud, flight_crud, booking_crud, city_crud) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+    [data.id, data.fullname, data.email, data.password, data.admin_role, data.admin_status, data.airline_crud, data.flight_crud, data.booking_crud, data.city_crud]
   );
 };
 
@@ -35,8 +35,8 @@ const findRole = (admin_role) => {
 };
 
 const updateAdmin = (data) => {
-  const {id, email, password, airline_crud, flight_crud, booking_crud, city_crud} = data;
-  return Pool.query(`UPDATE admin set email='${email}', password='${password}', airline_crud='${airline_crud}', flight_crud='${flight_crud}', booking_crud='${booking_crud}', city_crud='${city_crud}' WHERE id='${id}'`)
+  const {id, fullname, email, password, admin_status, airline_crud, flight_crud, booking_crud, city_crud} = data;
+  return Pool.query(`UPDATE admin set fullname='${fullname}', email='${email}', password='${password}', admin_status='${admin_status}', airline_crud='${airline_crud}', flight_crud='${flight_crud}', booking_crud='${booking_crud}', city_crud='${city_crud}' WHERE id='${id}'`)
 }
 
 const deleteAdmin = (id) => {

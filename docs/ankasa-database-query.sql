@@ -8,7 +8,7 @@ create database ankasa;
 
 create type admin_role as enum(
     'admin',
-    'super admin'
+    'super_admin'
 );
 
 -- CREATE TABLE
