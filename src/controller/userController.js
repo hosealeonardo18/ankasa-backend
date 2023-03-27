@@ -61,7 +61,6 @@ const userController = {
         id: user.id, // add the user ID to the payload
         role: "user", // role for middleware check
       };
-      // console.log(payload)
       user.token = authHelper.generateToken(payload);
       user.refreshToken = authHelper.generateRefreshToken(payload);
       commonHelper.response(res, user, 201, "login is successful");
@@ -231,7 +230,6 @@ const userController = {
   selectAllUser: async (req, res) => {
     try {
       const result = await userModel.getAllUser();
-      console.log(result);
       const {
         rows: [count],
       } = await userModel.countData();
@@ -262,7 +260,6 @@ const userController = {
       const saltRounds = 10
       const hashPassword = await bcrypt.hash(password, saltRounds);
       const id = uuid.v4();
-      // console.log(req.body.fullname);
       const payload = {
         fullname: req.body.fullname,
         email: req.body.email,
@@ -270,13 +267,11 @@ const userController = {
         password: hashPassword,
         id: id,
       };
-      console.log(payload);
       const token = authHelper.generateToken(payload);
       sendMail(token, req.body.email);
       commonHelper.response(res, null, 200, "Check your email");
     } catch (error) {
       commonHelper.response(res, null, 500, error.detail);
-      console.log(error);
     }
   },
 

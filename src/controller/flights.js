@@ -100,7 +100,6 @@ const flightsController = {
     data.updated_at = Date.now();
     updateFlights(data)
       .then((result) => {
-        console.log(result);
         commonHelper.response(res, result.rows, 200, "Flight updated");
       })
       .catch((err) => res.status(500).json(err));

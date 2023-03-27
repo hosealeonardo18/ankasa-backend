@@ -22,7 +22,6 @@ const cityController = {
             const limit = Number(req.query.limit) || 10;
             const offset = (page - 1) * limit;
             const result = await selectAllCity(search, sortBY, sort, limit, offset);
-            console.log(result);
             const { rows: [count], } = await countData();
             const totalData = parseInt(count.count);
             const totalPage = Math.ceil(totalData / limit);

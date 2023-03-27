@@ -4,6 +4,13 @@ create database ankasa;
 \l
 \c ankasa
 
+-- CREATE TYPE
+
+create type admin_role as enum(
+    'admin',
+    'super admin'
+);
+
 -- CREATE TABLE
 
 create table users(
@@ -21,7 +28,12 @@ create table users(
 create table admin(
     id varchar(36) not null primary key,
     email varchar(60) not null unique,
-    password varchar(128) not null
+    password varchar(128) not null,
+    admin_role admin_role not null,
+    airline_crud boolean default(false),
+    flight_crud boolean default(false),
+    booking_crud boolean default(false),
+    city_crud boolean default(false)
 );
 
 create table credit_card(
@@ -50,7 +62,8 @@ create table city(
     id varchar(36) not null primary key,
     name varchar(20) not null,
     country varchar(20) not null,
-    image varchar default('city.png')
+    image varchar default('city.png'),
+    description text
 );
 
 create table airlines(
@@ -71,10 +84,10 @@ create table flights(
     city_departure_code varchar(4) not null,
     city_destination varchar(40) not null,
     city_destination_code varchar(4) not null,
-    date_departure date,
-    time_departure time,
-    date_arrival date,
-    time_arrival time,
+    date_departure date not null,
+    time_departure time not null,
+    date_arrival date not null,
+    time_arrival time not null,
     transit_count int not null,
     flight_trip int not null,
     flight_class int not null,
@@ -100,9 +113,7 @@ create table reviews(
     foreign key (id_flight) references flights(id),
     rating int not null,
     title varchar(30) not null,
-    description text,
-    created_at timestamp,
-    updated_at timestamp
+    description text
 );
 
 create table booking(
@@ -115,7 +126,10 @@ create table booking(
     foreign key (id_credit_card) references credit_card(id),
     insurance boolean default('true'),
     status int not null,
-    created_at timestamp
+    created_at timestamp,
+    booking_name varchar(40),
+    email varchar(60),
+    phone_number varchar(16)
 );
 
 create table passengers(

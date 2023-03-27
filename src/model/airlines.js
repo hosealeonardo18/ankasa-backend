@@ -1,7 +1,8 @@
 const Pool = require('../config/db');
 
 const selectAllAirlines = (search, sortBY, sort, limit, offset) => {
-    return Pool.query(`SELECT * FROM airlines WHERE name LIKE '%${search}%' ORDER BY ${sortBY} ${sort} LIMIT ${limit} OFFSET ${offset}`);
+    return Pool.query(`SELECT * FROM airlines WHERE name ILIKE '%${search}%' 
+        ORDER BY ${sortBY} ${sort} LIMIT ${limit} OFFSET ${offset}`);
 };
 
 const selectDetailAirlines = (id) =>{
@@ -29,14 +30,8 @@ const deleteAirlines = (id) => {
 
 const findId = (id) => {
     return new Promise((resolve, reject) => 
-        Pool.query(`SELECT id FROM airlines WHERE id='${id}'`, (error, result) => {
-            if (!error) {
-                resolve(result)
-            } else {
-                reject(error)
-            }
-        })
-    )
+        Pool.query(`SELECT id FROM airlines WHERE id='${id}'`,
+            (error, result) => (!error) ? resolve(result) : reject(error)));
 };
 
 const countData = () => {
