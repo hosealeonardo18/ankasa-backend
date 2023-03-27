@@ -193,7 +193,7 @@ const adminController = {
       const checkSuperAdmin = await adminModel.findRole(admin_role);
       if (checkSuperAdmin.rowCount > 0) {
         return res.json({
-          message: "Super admin just one and only",
+          message: "Super admin just one and only, you cannot create again",
         });
       }
       const data = {
