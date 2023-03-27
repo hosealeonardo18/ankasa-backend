@@ -51,7 +51,7 @@ const getUserBooking = async (req, res) => {
         const offset = (page - 1) * limit;
 
         //Get all bookings from database
-        const results = await bookingModel.selectUserBooking(id_user, searchQuery, sortBy, sort, limit, offset)
+        const results = await bookingModel.selectUserBooking(id_user, searchQuery)
 
         //Return not found if there's no booking in database
         if (!results.rowCount) return commonHelper

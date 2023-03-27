@@ -31,9 +31,10 @@ const cityController = {
                 totalData: totalData,
                 totalPage: totalPage,
             };
-            commonHelper.response(res, result.rows, 200, "get data succes", pagination);
+            commonHelper.response(res, result.rows, 200, "Get all cities success", pagination);
         } catch (error) {
             console.log(error);
+            commonHelper.response(res, null, 500, "Failed getting all cities");
         }
     },
     getDetailCity: async (req, res) => {
@@ -45,56 +46,61 @@ const cityController = {
                     Message: "data not found",
                 });
             }
-            selectDetailCity(id)
-                .then((result) => {
-                    commonHelper.response(res, result.rows, 200, "get data by id success");
-                })
-                .catch((err) => res.send(err));
+            const result = await selectDetailCity(id)
+            commonHelper.response(res, result.rows, 200, "get data by id success");
         } catch (error) {
             console.log(error);
+            commonHelper.response(res, null, 500, "Failed getting detail city")
         }
     },
     createCity: async (req, res) => {
-        const { name, country, description } = req.body;
-        const id = uuidv4();
-        const result = await cloudinary.uploader.upload(req.file.path)
-        const image = result.secure_url;
-        const data = { id, name, country, image, description };
-        insertCity(data)
-            .then((result) => {
-                commonHelper.response(res, result.rows, 201, "City created");
-            })
-            .catch((err) => res.status(500).json(err));
+        try {
+            const { name, country, description } = req.body;
+            const id = uuidv4();
+            const result = await cloudinary.uploader.upload(req.file.path)
+            const image = result.secure_url;
+            const data = { id, name, country, image, description };
+            const result2 = await insertCity(data)
+            commonHelper.response(res, result2.rows, 201, "City created");
+        } catch (error) {
+            console.log(error)
+            commonHelper.response(res, null, 500, "Failed creating city");
+        }
     },
     updateCity: async (req, res) => {
-        const id = req.params.id;
-        const { name, country, description } = req.body;
-        const result = await cloudinary.uploader.upload(req.file.path)
-        const image = result.secure_url;
-        const { rowCount } = await findId(id);
-        if (!rowCount) {
-            return res.json({
-                Message: "data not found",
-            });
+        try {
+            const id = req.params.id;
+            const { name, country, description } = req.body;
+            const result = await cloudinary.uploader.upload(req.file.path)
+            const image = result.secure_url;
+            const { rowCount } = await findId(id);
+            if (!rowCount) {
+                return res.json({
+                    Message: "data not found",
+                });
+            }
+            const data = { id, name, country, image, description };
+            const result2 = await updateCity(data);
+
+            commonHelper.response(res, result2.rows, 200, "City updated");
+        } catch (error) {
+            console.log(error)
+            commonHelper.response(res, null, 500, "Failed updating city")
         }
-        const data = { id, name, country, image, description };
-        updateCity(data)
-            .then((result) => {
-                commonHelper.response(res, result.rows, 200, "City updated");
-            })
-            .catch((err) => res.status(500).json(err));
     },
     deleteCity: async (req, res) => {
-        const id = req.params.id;
-        const { rowCount } = await findId(id);
-        if (!rowCount) {
-            res.json({ message: "ID is Not Found" });
+        try {
+            const id = req.params.id;
+            const { rowCount } = await findId(id);
+            if (!rowCount) {
+                res.json({ message: "ID is Not Found" });
+            }
+            const result = await deleteCity(id)
+            commonHelper.response(res, result.rows, 200, "City deleted")
+        } catch (error) {
+            console.log(error)
+            commonHelper.response(res, null, 500, "Failed deleting city")
         }
-        deleteCity(id)
-            .then((result) => {
-                commonHelper.response(res, result.rows, 200, "City deleted")
-            })
-            .catch((err) => res.send(err));
     },
 };
 

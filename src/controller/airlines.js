@@ -80,70 +80,76 @@ const airlinesController = {
   },
 
   updateAirlines: async (req, res) => {
-    const id = req.params.id;
-    let { name, email, website, phone_number, availability } = req.body;
-    if (availability == undefined) {
-      availability = true;
-    }
-    let image = "";
-    const oldAirline = await selectDetailAirlines(id)
+    try {
+      const id = req.params.id;
+      let { name, email, website, phone_number, availability } = req.body;
+      if (availability == undefined) {
+        availability = true;
+      }
+      let image = "";
+      const oldAirline = await selectDetailAirlines(id)
 
-    if (req.file) {
-      const oldPhoto = oldAirline.rows[0].image;
-      const oldPhotoId = oldPhoto.split("=")[1];
-      const updateResult = await updatePhoto(req.file, oldPhotoId)
-      const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
-      image = parentPath.concat(updateResult.id)
-    } else {
-      image = oldAirline.rows[0].image;
-    }
+      if (req.file) {
+        const oldPhoto = oldAirline.rows[0].image;
+        const oldPhotoId = oldPhoto.split("=")[1];
+        const updateResult = await googleDrive.updatePhoto(req.file, oldPhotoId)
+        const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
+        image = parentPath.concat(updateResult.id)
+      } else {
+        image = oldAirline.rows[0].image;
+      }
 
-    const { rowCount } = await findId(id);
-    if (!rowCount) {
-      return res.json({
-        Message: "data not found",
-      });
+      const { rowCount } = await findId(id);
+      if (!rowCount) {
+        return res.json({
+          Message: "data not found",
+        });
+      }
+      const data = { id, name, email, image, website, phone_number, availability };
+      const result = await updateAirlines(data);
+
+      commonHelper.response(res, result.rows, 201, "Airline updated");
+    } catch (error) {
+      console.log(error);
+      commonHelper.response(res, null, 500, "Failed updating airline")
     }
-    const data = { id, name, email, image, website, phone_number, availability };
-    updateAirlines(data)
-      .then((result) => {
-        commonHelper.response(res, result.rows, 200, "Airline updated");
-      })
-      .catch((err) => res.status(500).json(err));
   },
   airlinesAvailability: async (req, res) => {
-    const id = req.params.id;
-    let { availability } = req.body;
-
-    const { rowCount } = await findId(id);
-    if (!rowCount) {
-      return res.json({
-        Message: "data not found",
-      });
+    try {
+      const id = req.params.id;
+      let { availability } = req.body;
+  
+      const { rowCount } = await findId(id);
+      if (!rowCount) {
+        return res.json({
+          Message: "data not found",
+        });
+      }
+      const data = { id, availability }
+      const result = await setAirlineAvailability(data)
+      commonHelper.response(res, result.rows, 200, "Airline status updated");
+    } catch (error) {
+      console.log(error)
+      commonHelper.response(res, null, 500, "Failed updating airline availability");
     }
-    const data = { id, availability }
-    setAirlineAvailability(data)
-      .then((result) => {
-        commonHelper.response(res, result.rows, 200, "Airline status updated");
-      })
-      .catch((err) => res.status(500).json(err));
   },
   deleteAirlines: async (req, res) => {
-    const id = req.params.id;
-    const { rowCount } = await findId(id);
-    if (!rowCount) {
-      res.json({ message: "ID is Not Found" });
+    try {
+      const id = req.params.id;
+      const { rowCount } = await findId(id);
+      if (!rowCount) {
+        res.json({ message: "ID is Not Found" });
+      }
+      const oldAirline = await selectDetailAirlines(id);
+      const oldPhoto = oldAirline.rows[0].image;
+      const oldPhotoId = oldPhoto.split("=")[1];
+      await googleDrive.deleteImage(oldPhotoId)
+      const result = await deleteAirlines(id)
+      commonHelper.response(res, result.rows, 200, "Airline deleted")
+    } catch (error) {
+      console.log(error)
+      commonHelper.response(res, null, 500, "Failed deleting airline");
     }
-    const oldAirline = await selectDetailAirlines(id);
-    const oldPhoto = oldAirline.rows[0].image;
-    const oldPhotoId = oldPhoto.split("=")[1];
-    await googleDrive.deleteImage(oldPhotoId)
-    deleteAirlines(id)
-      .then((result) => {
-        
-        commonHelper.response(res, result.rows, 200, "Airlines deleted")
-      })
-      .catch((err) => res.send(err));
   }
 };
 
