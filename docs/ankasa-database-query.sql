@@ -27,9 +27,11 @@ create table users(
 
 create table admin(
     id varchar(36) not null primary key,
+    fullname varchar(40) not null,
     email varchar(60) not null unique,
     password varchar(128) not null,
     admin_role admin_role not null,
+    admin_status boolean default(true),
     airline_crud boolean default(false),
     flight_crud boolean default(false),
     booking_crud boolean default(false),
