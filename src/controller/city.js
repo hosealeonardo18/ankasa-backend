@@ -11,6 +11,7 @@ const {
 const commonHelper = require("../helper/common");
 const { v4: uuidv4 } = require("uuid");
 var cloudinary = require("../config/cloudinary");
+const googleDrive = require("../config/googleDrive");
 
 const cityController = {
     getAllCity: async (req, res) => {
@@ -57,8 +58,10 @@ const cityController = {
         try {
             const { name, country, description } = req.body;
             const id = uuidv4();
-            const result = await cloudinary.uploader.upload(req.file.path)
-            const image = result.secure_url;
+            // Google Drive
+            const uploadResult = await googleDrive.uploadImage(req.file)
+            const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
+            const image = parentPath.concat(uploadResult.id)
             const data = { id, name, country, image, description };
             const result2 = await insertCity(data)
             commonHelper.response(res, result2.rows, 201, "City created");

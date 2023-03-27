@@ -180,7 +180,7 @@ const adminController = {
   },
   createSuperAdmin: async (req, res) => {
     try {
-      const { email, password, airline_crud, flight_crud, booking_crud, city_crud } = req.body;
+      const { email, password } = req.body;
       const checkEmail = await adminModel.findEmail(email);
       if (checkEmail.rowCount > 0) {
         return res.json({
@@ -189,7 +189,7 @@ const adminController = {
       }
       const hashPassword = await bcrypt.hash(password, saltRounds);
       const id = uuid.v4();
-      const admin_role = 'super admin';
+      const admin_role = 'super_admin';
       const checkSuperAdmin = await adminModel.findRole(admin_role);
       if (checkSuperAdmin.rowCount > 0) {
         return res.json({
@@ -201,14 +201,14 @@ const adminController = {
         email,
         password: hashPassword,
         admin_role,
-        airline_crud,
-        flight_crud,
-        booking_crud,
-        city_crud
+        airline_crud: true,
+        flight_crud: true,
+        booking_crud: true,
+        city_crud: true
       };
       console.log(data);
       const result = await adminModel.createSuperAdmin(data);
-      commonHelper.response(res, result.rows, 201, "success register account super admin");
+      commonHelper.response(res, result.rows, 201, "success create account super admin");
     } catch (err) {
       res.send(err);
     }
