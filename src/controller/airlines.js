@@ -83,7 +83,7 @@ const airlinesController = {
       if (req.file) {
         const oldPhoto = oldAirline.rows[0].image;
         const oldPhotoId = oldPhoto.split("=")[1];
-        const updateResult = await googleDrive.updatePhoto(req.file, oldPhotoId)
+        const updateResult = await googleDrive.updateImage(req.file, oldPhotoId)
         const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
         image = parentPath.concat(updateResult.id)
       } else {
