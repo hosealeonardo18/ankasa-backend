@@ -33,8 +33,6 @@ const verifyToken = async (req, res, next) => {
 const isIdValid = (req, res, next) => {
   const payload = req.payload;
   const queryId = req.params.id_admin || req.params.id_user;
-  console.log(`payload id : ${payload}`);
-  console.log(`query id : ${queryId}`);
   if (payload) {
     if (payload.id == queryId) {
       next();
@@ -76,6 +74,7 @@ const isUser = (req, res, next) => {
     commonHelper.response(res, null, 403, "User not found");
   }
 };
+
 
 
 module.exports = { verifyToken, isIdValid, isAdmin, isUser };

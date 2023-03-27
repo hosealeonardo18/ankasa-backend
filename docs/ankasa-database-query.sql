@@ -4,6 +4,13 @@ create database ankasa;
 \l
 \c ankasa
 
+-- CREATE TYPE
+
+create type admin_role as enum(
+    'admin',
+    'super admin'
+);
+
 -- CREATE TABLE
 
 create table users(
@@ -21,7 +28,12 @@ create table users(
 create table admin(
     id varchar(36) not null primary key,
     email varchar(60) not null unique,
-    password varchar(128) not null
+    password varchar(128) not null,
+    admin_role admin_role not null,
+    airline_crud boolean default(false),
+    flight_crud boolean default(false),
+    booking_crud boolean default(false),
+    city_crud boolean default(false)
 );
 
 create table credit_card(

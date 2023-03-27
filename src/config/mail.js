@@ -6,7 +6,7 @@ function sendMail(token, email) {
     const configMail = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
-        secure: false, // true for 465, false for other ports
+        secure: false,
         auth: {
             user: process.env.EMAIL_SENDER, // generated ethereal user
             pass: process.env.EMAIL_SENDER_PASSWORD, // generated ethereal password
