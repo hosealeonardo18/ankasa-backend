@@ -75,6 +75,72 @@ const isUser = (req, res, next) => {
   }
 };
 
+const isSuperAdmin = (req, res, next) => {
+  const payload = req.payload;
+  if (payload) {
+    if (payload.role === "super admin") {
+      next();
+    } else {
+      commonHelper.response(res, null, 403,
+        "Unauthorized, Please ask super admin to permission access");
+    }
+  } else {
+    commonHelper.response(res, null, 403, "User not found");
+  }
+};
 
+// authorized flight, airline, booking, city
+const authFlight = (req, res, next) => {
+  const payload = req.payload;
+  if (payload) {
+    if (payload.flight === true) {
+      next();
+    } else {
+      commonHelper.response(res, null, 403,
+        "Unauthorized, Please ask super admin to permission access Flight");
+    }
+  } else {
+    commonHelper.response(res, null, 403, "User not found");
+  }
+};
+const authAirline = (req, res, next) => {
+  const payload = req.payload;
+  if (payload) {
+    if (payload.airline === true) {
+      next();
+    } else {
+      commonHelper.response(res, null, 403,
+        "Unauthorized, Please ask super admin to permission access Airline");
+    }
+  } else {
+    commonHelper.response(res, null, 403, "User not found");
+  }
+};
+const authBooking = (req, res, next) => {
+  const payload = req.payload;
+  if (payload) {
+    if (payload.booking === true) {
+      next();
+    } else {
+      commonHelper.response(res, null, 403,
+        "Unauthorized, Please ask super admin to permission access Booking");
+    }
+  } else {
+    commonHelper.response(res, null, 403, "User not found");
+  }
+};
+const authCity = (req, res, next) => {
+  const payload = req.payload;
+  if (payload) {
+    if (payload.city === true) {
+      next();
+    } else {
+      commonHelper.response(res, null, 403,
+        "Unauthorized, Please ask super admin to permission access City");
+    }
+  } else {
+    commonHelper.response(res, null, 403, "User not found");
+  }
+};
 
-module.exports = { verifyToken, isIdValid, isAdmin, isUser };
+module.exports = { verifyToken, isIdValid, isAdmin, isUser, isSuperAdmin, authFlight, authAirline, authBooking, authCity };
