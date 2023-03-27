@@ -15,7 +15,7 @@ const selectDetailPassengers = (id) => {
         flights.city_departure_code, flights.city_destination_code, 
         flights.code, flights.flight_class, flights.terminal, flights.gate, 
         flights.date_departure, flights.time_departure from passengers 
-        inner join booking on booking.id = passengers.id_booking inner join 
+        right join booking on booking.id = passengers.id_booking inner join 
         flights on booking.id_flight = flights.id inner join airlines on 
         flights.id_airline = airlines.id where passengers.id='${id}'`);
 };

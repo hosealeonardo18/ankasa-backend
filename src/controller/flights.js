@@ -38,12 +38,12 @@ const flightsController = {
 
       const data = {
         cityDept, cityDest, transit, flightTrip, flightClass, luggage, inflight_meal, wifi,
-        deptDate, deptTimeStart, deptTimeEnd, arrivalTimeStart, arrivalTimeEnd, 
+        deptDate, deptTimeStart, deptTimeEnd, arrivalTimeStart, arrivalTimeEnd,
         person, airline, ticketPriceStart, ticketPriceEnd, sortBY, sort, limit, offset
       }
       const result = await selectAllFlights(data);
 
-      if(!result.rowCount) return commonHelper.response(res, null, 404, "flight not found");
+      if (!result.rowCount) return commonHelper.response(res, null, 404, "flight not found");
 
       const totalData = parseInt(result.rowCount);
       const totalPage = Math.ceil(totalData / limit);
@@ -56,6 +56,7 @@ const flightsController = {
       commonHelper.response(res, result.rows, 200, "get data succes", pagination);
     } catch (error) {
       console.log(error);
+      commonHelper.response(res, null, 500, "Failed getting all flights");
     }
   },
   getDetailFlights: async (req, res) => {
@@ -67,25 +68,28 @@ const flightsController = {
           Message: "data not found",
         });
       }
-      selectDetailFlights(id)
-        .then((result) => {
-          commonHelper.response(res, result.rows, 200, "get data by id success");
-        })
-        .catch((err) => {res.send(err); console.log(err)});
+      const result = await selectDetailFlights(id)
+      commonHelper.response(res, result.rows, 200, "get data by id success");
     } catch (error) {
       console.log(error);
+      commonHelper.response(res, null, 500, "Failed getting detail flight")
     }
   },
   createFlights: async (req, res) => {
-    const data = req.body;
-    data.id = uuidv4();
-    data.created_at = Date.now();
-    data.updated_at = Date.now();
-    insertFlights(data)
-      .then((result) => {
-        commonHelper.response(res, result.rows, 201, "Flights created");
-      })
-      .catch((err) => res.status(500).json(err));
+    try {
+      const data = req.body;
+      data.id = uuidv4();
+      data.created_at = Date.now();
+      data.updated_at = Date.now();
+      insertFlights(data)
+        .then((result) => {
+          commonHelper.response(res, result.rows, 201, "Flights created");
+        })
+        .catch((err) => res.status(500).json(err));
+    } catch (error) {
+      console.log(error)
+      commonHelper.response(res, null, 500, "Failed creating flight");
+    }
   },
   updateFlights: async (req, res) => {
     const id = req.params.id;
