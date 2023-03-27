@@ -3,7 +3,6 @@ const googleDrive = require("../config/googleDrive");
 const commonHelper = require("../helper/common");
 const { v4: uuidv4 } = require("uuid");
 var cloudinary = require("../config/cloudinary");
-const googleDrive = require("../config/googleDrive");
 
 const cityController = {
     getAllCity: async (req, res) => {

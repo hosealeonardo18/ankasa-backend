@@ -10,7 +10,7 @@ const saltRounds = 10;
 const adminController = {
   registerAdmin: async (req, res) => {
     try {
-      const { email, password, airline_crud, flight_crud, booking_crud, city_crud } = req.body;
+      const { email, fullname, password, admin_status, airline_crud, flight_crud, booking_crud, city_crud } = req.body;
       const checkEmail = await adminModel.findEmail(email);
       if (checkEmail.rowCount > 0) {
         return res.json({
@@ -22,9 +22,11 @@ const adminController = {
       const admin_role = 'admin';
       const data = {
         id,
+        fullname,
         email,
         password: hashPassword,
         admin_role,
+        admin_status,
         airline_crud: false,
         flight_crud: false,
         booking_crud: false,
@@ -136,7 +138,7 @@ const adminController = {
   },
   updateAdmin: async (req, res) => {
     const id = req.params.id;
-    const { email, password, airline_crud, flight_crud, booking_crud, city_crud } = req.body;
+    const { email, fullname, password, admin_status, airline_crud, flight_crud, booking_crud, city_crud } = req.body;
     const { rowCount } = await adminModel.findId(id);
     if (!rowCount) {
       return res.json({
@@ -144,7 +146,7 @@ const adminController = {
       });
     }
     const hashPassword = await bcrypt.hash(password, saltRounds);
-    const data = { id, email, password: hashPassword, airline_crud, flight_crud, booking_crud, city_crud };
+    const data = { id, fullname, email, password: hashPassword, admin_status, airline_crud, flight_crud, booking_crud, city_crud };
     adminModel.updateAdmin(data)
       .then((result) => {
         commonHelper.response(res, result.rows, 200, "Data admin updated");
