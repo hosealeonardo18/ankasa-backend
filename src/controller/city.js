@@ -2,7 +2,6 @@ const cityModel = require("../model/city");
 const googleDrive = require("../config/googleDrive");
 const commonHelper = require("../helper/common");
 const { v4: uuidv4 } = require("uuid");
-var cloudinary = require("../config/cloudinary");
 
 const cityController = {
     getAllCity: async (req, res) => {
@@ -67,8 +66,6 @@ const cityController = {
         try {
             const id = req.params.id;
             const { name, country, description } = req.body;
-            // const result = await cloudinary.uploader.upload(req.file.path)
-            // const image = result.secure_url;
             const result = await cityModel.findId(id);
             if (!result.rowCount) {
                 return res.json({
@@ -101,7 +98,7 @@ const cityController = {
         try {
             const id = req.params.id;
             const result = await cityModel.findId(id);
-            if (!rowCount) {
+            if (!result.rowCount) {
                 return res.json({ message: "ID is Not Found" });
             }
 
