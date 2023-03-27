@@ -1,0 +1,1404 @@
+{
+	"info": {
+		"_postman_id": "a4d3714f-22e1-47b3-8118-a4ab7580ba1d",
+		"name": "Ankasa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25234541"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\" : \"Alif Anke 3\",\n    \"email\" : \"alif.anke.3@gmail.com\",\n    \"password\" : \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/user/register",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"alif.anke.3@gmail.com\",\n    \"password\" : \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/user/login",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWYuYW5rZS5iaW1hQGdtYWlsLmNvbSIsImlkIjoiMDg2ZDdkMjEtNDk4OC00MTljLTlkYTYtNjYwOGFiOTQ5ZjllIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2Nzg2MDE3MzIsImV4cCI6MTY3ODYwNTMzMiwiaXNzIjoiYW5rYXNhIn0.OKNq9wjIbr-Teejo6B1Md9KKzA0__A3CmXnWeFsopdo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/user/refresh-token",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"user",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get profile user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/user/profile",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/user",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register with email verification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\" : \"Alif Anke 2\",\n    \"email\" : \"alif.anke.2@gmail.com\",\n    \"phone_number\" : \"081212345678\",\n    \"password\" : \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/user/registerVerif",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"user",
+								"registerVerif"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Email token verification",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/user/verif/{{email_token}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"user",
+								"verif",
+								"{{email_token}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Register admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\" : \"Alif\",\n    \"email\" : \"admin@gmail.com\",\n    \"password\" : \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/admin/register",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"admin",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"admin@gmail.com\",\n    \"password\" : \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/admin/login",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"admin",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWYuYW5rZS5iaW1hQGdtYWlsLmNvbSIsImlkIjoiMDg2ZDdkMjEtNDk4OC00MTljLTlkYTYtNjYwOGFiOTQ5ZjllIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2Nzg2MDE3MzIsImV4cCI6MTY3ODYwNTMzMiwiaXNzIjoiYW5rYXNhIn0.OKNq9wjIbr-Teejo6B1Md9KKzA0__A3CmXnWeFsopdo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/admin/refresh-token",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"admin",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all admins",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/admin",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Airline",
+			"item": [
+				{
+					"name": "Get all airlines",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/airline",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"airline"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get detail airlines",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/airline/{{id_airline}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"airline",
+								"{{id_airline}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create airline",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "airline bismillah",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "air.asia@support.com",
+									"type": "text"
+								},
+								{
+									"key": "website",
+									"value": "https://www.airasia.com/id/id",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "phone_number",
+									"value": "084657325642",
+									"type": "text"
+								},
+								{
+									"key": "availability",
+									"value": "false",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}/airline",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"airline"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set airline availability",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"availability\" : \"true\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/airline/{{id_airline}}/availability",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"airline",
+								"{{id_airline}}",
+								"availability"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update airline",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Garuda india",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "garuda.indonesia@support.com",
+									"type": "text"
+								},
+								{
+									"key": "website",
+									"value": "https://www.garuda-indonesia.com/id/id/index",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/alif/Unduhan/logo_maskapai/garuda-indonesia.png"
+								},
+								{
+									"key": "phone_number",
+									"value": "081212345678",
+									"type": "text"
+								},
+								{
+									"key": "availability",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}/airline/{{id_airline}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"airline",
+								"{{id_airline}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete airline",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/airline/{{id_airline}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"airline",
+								"{{id_airline}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Flight",
+			"item": [
+				{
+					"name": "Get all flights",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/flight",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"flight"
+							],
+							"query": [
+								{
+									"key": "cityDept",
+									"value": "Semarang",
+									"description": "Semarang",
+									"disabled": true
+								},
+								{
+									"key": "cityDest",
+									"value": "Yokohama",
+									"description": "Yokohama",
+									"disabled": true
+								},
+								{
+									"key": "transit",
+									"value": "1",
+									"description": "transit hanya simpan berapa kali transit aja, tidak simpan nama kota / negara transit",
+									"disabled": true
+								},
+								{
+									"key": "luggage",
+									"value": "true",
+									"description": "boolean",
+									"disabled": true
+								},
+								{
+									"key": "inflight_meal",
+									"value": "false",
+									"description": "boolean",
+									"disabled": true
+								},
+								{
+									"key": "wifi",
+									"value": "false",
+									"description": "boolean",
+									"disabled": true
+								},
+								{
+									"key": "deptDate",
+									"value": "2023-03-18",
+									"description": "tanggal keberangkatan",
+									"disabled": true
+								},
+								{
+									"key": "airline",
+									"value": "Lion air",
+									"description": "nama maskapai penerbangan",
+									"disabled": true
+								},
+								{
+									"key": "ticketPriceStart",
+									"value": "2400000",
+									"description": "range awal harga tiket",
+									"disabled": true
+								},
+								{
+									"key": "ticketPriceEnd",
+									"value": "3200000",
+									"description": "range akhir harga tiket",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "updated_at",
+									"description": "sortir berdasarkan nama kolom",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "desc",
+									"description": "sortir asc / desc",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "halaman pagination",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "limit data di halaman",
+									"disabled": true
+								},
+								{
+									"key": "deptTimeStart",
+									"value": "0600",
+									"description": "tanpa tanda titik dua ya \":\"",
+									"disabled": true
+								},
+								{
+									"key": "deptTimeEnd",
+									"value": "0700",
+									"description": "tanpa tanda titik dua ya \":\"",
+									"disabled": true
+								},
+								{
+									"key": "arrivalTimeStart",
+									"value": "1500",
+									"description": "tanpa tanda titik dua ya \":\"",
+									"disabled": true
+								},
+								{
+									"key": "arrivalTimeEnd",
+									"value": "1600",
+									"description": "tanpa tanda titik dua ya \":\"",
+									"disabled": true
+								},
+								{
+									"key": "flightTrip",
+									"value": "2",
+									"description": "1 = one way, 2 = round trip",
+									"disabled": true
+								},
+								{
+									"key": "flightClass",
+									"value": "3",
+									"description": "1 = economy, 2 = business, 3 = first class",
+									"disabled": true
+								},
+								{
+									"key": "person",
+									"value": "1",
+									"description": "jumlah penumpang",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get detail flight",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/flight/{{id_flight}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"flight",
+								"{{id_flight}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create flight",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_airline\" : \"850f9d3a-be9b-49e3-8197-9a9cee02be39\",\n    \"city_departure\" : \"Papua\",\n    \"city_departure_code\" : \"PAP\",\n    \"city_destination\" : \"Jakarta\",\n    \"city_destination_code\" : \"JKT\",\n    \"date_departure\" : \"2023-03-18\",\n    \"time_departure\" : \"15:00\",\n    \"date_arrival\" : \"2023-03-18\",\n    \"time_arrival\" : \"18:30\",\n    \"transit_count\" : \"1\",\n    \"flight_trip\" : \"1\",\n    \"flight_class\" : \"1\",\n    \"capacity\" : \"250\",\n    \"price\" : \"2100000\",\n    \"luggage\" : true,\n    \"inflight_meal\" : true,\n    \"wifi\" : true,\n    \"refundable\" : true,\n    \"reschedule\" : true,\n    \"code\" : \"-373\",\n    \"terminal\" : \"A\",\n    \"gate\" : \"22\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/flight",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"flight"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update flight",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_airline\" : \"33091526-8790-46d3-bcbc-14bde43f6e30\",\n    \"city_departure\" : \"Jakarta test jam baru baru\",\n    \"city_departure_code\" : \"JKT\",\n    \"city_destination\" : \"Tokyo\",\n    \"city_destination_code\" : \"TOK\",\n    \"date_departure\" : \"2022-12-10\",\n    \"time_departure\" : \"09:00\",\n    \"date_arrival\" : \"2022-12-10\",\n    \"time_arrival\" : \"11:00\",   \n    \"transit_count\" : \"1\",\n    \"flight_trip\" : \"1\",\n    \"flight_class\" : \"1\",\n    \"capacity\" : \"100\",\n    \"price\" : \"1000000\",\n    \"luggage\" : true,\n    \"inflight_meal\" : true,\n    \"wifi\" : false,\n    \"refundable\" : true,\n    \"reschedule\" : true,\n    \"code\" : \"CA-223\",\n    \"terminal\" : \"F\",\n    \"gate\" : \"321\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/flight/{{id_flight}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"flight",
+								"{{id_flight}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete flight",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/flight/{{id_flight}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"flight",
+								"{{id_flight}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "City",
+			"item": [
+				{
+					"name": "Get all cities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/city?limit=6&sortBy=id&sort=desc&page=2",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"city"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "6"
+								},
+								{
+									"key": "sortBy",
+									"value": "id"
+								},
+								{
+									"key": "sort",
+									"value": "desc"
+								},
+								{
+									"key": "search",
+									"value": "jepang",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get detail city",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/city/{{id_city}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"city",
+								"{{id_city}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create city",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Sydney",
+									"description": "nama kota",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "Australia",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/alif/Dropbox/Pictures/Profile picture/325298687_628390289046640_906610024568446155_n.jpg"
+								},
+								{
+									"key": "description",
+									"value": "tes deskripsi",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}/city",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"city"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update city",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Tokyo",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "Jepang",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/alif/Unduhan/Foto_Kota_Tujuan/Yokohama, Jepang.jpg"
+								},
+								{
+									"key": "description",
+									"value": "tes deskripsi update update",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}/city/{{id_city}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"city",
+								"{{id_city}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete city",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/city/{{id_city}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"city",
+								"{{id_city}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Credit Card",
+			"item": [
+				{
+					"name": "Get all credit cards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/creditCard",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"creditCard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user credit card",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/creditCard/{{id_user}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"creditCard",
+								"{{id_user}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create credit card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"fullname\": \"Mandiri\",\r\n      \"credit_number\": \"1234567890123431\",\r\n      \"expire\": \"2027-03-03\",\r\n      \"cvv\": \"123\",\r\n      \"balance\": \"20000000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/creditCard",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"creditCard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set preffered credit card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/creditCard/preffered/{{id_credit_card}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"creditCard",
+								"preffered",
+								"{{id_credit_card}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update credit card",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJpemFseXVuaWFyNkBnbWFpbC5jb20iLCJpZCI6ImEyYzNiYzJhLWZjYWEtNGVlMC1iODMxLWIwODA3MTJkYWI5NyIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjc4NjQ4OTU0LCJleHAiOjE2Nzg2NTI1NTQsImlzcyI6ImFua2FzYSJ9.l3HG3ZsE3rBwx-Xb5Wccy6TO3nBMCARuMYOTZkIkVds",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullname\": \"BRI\",\r\n    \"credit_number\": \"300\",\r\n    \"expire\": \"1922-02-03T16:52:48.000Z\",\r\n    \"cvv\": \"111222\",\r\n    \"balance\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/creditCard/{{id_credit_card}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"creditCard",
+								"{{id_credit_card}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete credit card",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/creditCard/{{id_credit_card}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"creditCard",
+								"{{id_credit_card}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking",
+			"item": [
+				{
+					"name": "Get all booking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/booking?limit=100",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user booking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/booking/user",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"booking",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get detail booking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/booking/{{id_booking}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"booking",
+								"{{id_booking}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create booking",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"insurance\" : true,\n    \"booking_name\" : \"Alif Anke 3\",\n    \"email\" : \"alif.anke.2@gmail.com\",\n    \"phone_number\" : \"085775849366\",\n    \"passengers\" : [\n        {\n            \"title\" : 1,\n            \"fullname\" : \"Iqbal\",\n            \"nationality\" : 1\n        },\n                {\n            \"title\" : 1,\n            \"fullname\" : \"Hose\",\n            \"nationality\" : 1\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/booking/{{id_flight}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"booking",
+								"{{id_flight}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set booking status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\" : 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/booking/status/{{id_booking}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"booking",
+								"status",
+								"{{id_booking}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete booking",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/booking/{{id_booking}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"booking",
+								"{{id_booking}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Get all reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/review",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/review/user",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"review",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get detail review",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/review/{{id_review}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"review",
+								"{{id_review}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\" : 5,\n    \"title\" : \"judul review\",\n    \"description\" : \"deskripsi review\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/review/{{id_flight}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"review",
+								"{{id_flight}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update review",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rating\" : 5,\n    \"title\" : \"judul review\",\n    \"description\" : \"deskripsi review\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/review/{{id_review}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"review",
+								"{{id_review}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete review",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/review/{{id_review}}",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"review",
+								"{{id_review}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{admin_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URL",
+			"value": "https://ankasa-backend-production.up.railway.app"
+		},
+		{
+			"key": "user_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWYuYW5rZS5iaW1hQGdtYWlsLmNvbSIsImlkIjoiMWVjYTEwNjItN2UxNS00MzYwLTk5YzUtZDE1ODc3NGMwZDZiIiwiaWF0IjoxNjc4NTk3MTg1LCJleHAiOjE2Nzg2MDA3ODUsImlzcyI6ImFua2FzYSJ9.HSRfv3jigftqsi7jfbFcZc5CbiYxQUIl9V7kmlMSpxE"
+		},
+		{
+			"key": "id_user",
+			"value": "1eca1062-7e15-4360-99c5-d158774c0d6b"
+		},
+		{
+			"key": "id_airline",
+			"value": "883bafff-f394-49e3-b0bb-781909f22d4c"
+		},
+		{
+			"key": "id_flight",
+			"value": "cb063be7-6bff-43ad-8c02-ef6e5ce60d1f"
+		},
+		{
+			"key": "id_city",
+			"value": "5ae80b8d-9d5c-4d75-a373-09cfd669ee8a"
+		},
+		{
+			"key": "id_credit_card",
+			"value": "a2c3bc2a-fcaa-4ee0-b831-b080712dab97"
+		},
+		{
+			"key": "id_booking",
+			"value": "28988d68-5085-4ed8-a3e5-008ca9fbd4be"
+		},
+		{
+			"key": "email_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaWYuYW5rZS4yQGdtYWlsLmNvbSIsImlkIjoiNjdjYzlkNTctYWRlYS00ODMyLThlYWItMmI5ODNjZDdhNTgyIiwicm9sZSI6InVzZXIiLCJpYXQiOjE2Nzg4NDMzMDEsImV4cCI6MTY3ODg0NjkwMSwiaXNzIjoiYW5rYXNhIn0.OjAOA8utPW8ZwLv0F3ae8GM-Fss_TjxuRHrFc0pz4ts",
+			"type": "string"
+		},
+		{
+			"key": "id_review",
+			"value": "28988d68-5085-4ed8-a3e5-008ca9fbd4be",
+			"type": "string"
+		},
+		{
+			"key": "admin_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjoiYWI0YTA2ZWYtM2JiMC00MDVlLThlZjYtOTE2MjdmNjQwOGEzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc4ODY2MTI2LCJleHAiOjE2Nzg4Njk3MjYsImlzcyI6ImFua2FzYSJ9.cg7XqKSTGuTQ6yXbvJVkNodMgq1lLw6KdBzMrYOvBHk",
+			"type": "string"
+		}
+	]
+}
