@@ -13,7 +13,7 @@ const selectAllBooking = (search, sortBY, sort, limit, offset) => {
         flights.code ORDER BY ${sortBY} ${sort} LIMIT ${limit} OFFSET ${offset}`);
 };
 
-const selectUserBooking = (id_user, search) => {
+const selectUserBooking = (id_user) => {
     return Pool.query(`select booking.*, flights.id_airline, 
     flights.date_departure, flights.time_departure, 
     flights.city_departure_code, flights.city_destination_code, 

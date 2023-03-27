@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 var cloudinary = require("../config/cloudinary");
+const googleDrive = require("../config/googleDrive");
 
 // verif
 const { sendMail } = require("../config/mail");
@@ -105,7 +106,7 @@ const userController = {
         return commonHelper.response(res, null, 404, "User not found");
 
       const creditCard = await creditCardModel.selectDetailCredit(user.id);
-      if(creditCard.rowCount){
+      if (creditCard.rowCount) {
         user.creditCards = creditCard.rows;
       } else {
         user.creditCards = []
@@ -156,11 +157,25 @@ const userController = {
         newData.password = await bcrypt.hash(password, saltRounds);
       }
 
-      if (req.file) {
-        const imageUrl = await cloudinary.uploader.upload(req.file.path, {
-          folder: "ankasa",
-        });
-        image = imageUrl.secure_url;
+      const result = await userModel.findId(userId);
+      // Update image if image already exists in database
+      if (req.file && result.rows[0].image != null) {
+        const oldImage = result.rows[0].image;
+        const oldImageId = oldImage.split("=")[1];
+        const updateResult = await googleDrive.updateImage(req.file, oldImageId)
+        const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
+        image = parentPath.concat(updateResult.id)
+
+      // Upload image if image doesn't exists in database
+      } else if (req.file && result.rows[0].image == null) {
+        const uploadResult = await googleDrive.uploadImage(req.file)
+        const parentPath = process.env.GOOGLE_DRIVE_PHOTO_PATH;
+        image = parentPath.concat(uploadResult.id)
+      }
+
+      // Use previous image if user doesn't upload new image
+      else {
+        image = result.rows[0].image;
       }
 
       if (phone_number) {
@@ -182,7 +197,7 @@ const userController = {
       const dataPw = await userModel.findId(id);
 
       const updatedData = {
-        name: newData.fullname || dataPw.rows[0].name,
+        fullname: newData.fullname || dataPw.rows[0].fullname,
         email: newData.email || dataPw.rows[0].email,
         password: newData.password || dataPw.rows[0].password,
         image: image || dataPw.rows[0].image,
@@ -193,7 +208,7 @@ const userController = {
       };
 
       await userModel.editProfile(
-        updatedData.name,
+        updatedData.fullname,
         updatedData.email,
         updatedData.password,
         updatedData.image,

@@ -21,14 +21,13 @@ const selectDetailPassengers = (id) => {
 };
 
 const insertPassengers = (data) => {
-    const { id, id_booking, title, fullname, nationality, passenger_type,
-        seat } = data;
+    const { id, id_booking, title, fullname, nationality, passenger_type } = data;
     return Pool.query(`INSERT INTO passengers VALUES('${id}', '${id_booking}', 
         '${title}','${fullname}', '${nationality}', '${passenger_type}')`);
 };
 
 const updatePassengers = (data) => {
-    const { id, title, fullname, nationality, passenger_type, seat } = data;
+    const { id, title, fullname, nationality, passenger_type } = data;
     return Pool.query(`UPDATE passengers title='${title}', 
         fullname='${fullname}', nationality='${nationality}', 
         passengers_type='${passenger_type}' WHERE id='${id}'`);
