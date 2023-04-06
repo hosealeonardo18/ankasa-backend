@@ -27,7 +27,6 @@ const editProfile = (
   id
 ) => {
   return new Promise((resolve, reject) => {
-    console.log(zipcode)
     const query = {
       text: "UPDATE users SET fullname=$1, email=$2, password=$3, image=$4, phone_number=$5, city=$6, address=$7, zipcode=$8 WHERE id=$9",
       values: [
