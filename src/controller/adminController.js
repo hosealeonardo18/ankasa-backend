@@ -67,7 +67,6 @@ const adminController = {
         booking: admin.booking_crud,
         city: admin.city_crud
       };
-      console.log(payload)
       admin.token = authHelper.generateToken(payload);
       admin.refreshToken = authHelper.generateRefreshToken(payload);
       commonHelper.response(res, admin, 201, "login is successful");
@@ -208,7 +207,6 @@ const adminController = {
         booking_crud: true,
         city_crud: true
       };
-      console.log(data);
       const result = await adminModel.createSuperAdmin(data);
       commonHelper.response(res, result.rows, 201, "success create account super admin");
     } catch (err) {
