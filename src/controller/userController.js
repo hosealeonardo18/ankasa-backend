@@ -238,7 +238,7 @@ const userController = {
       );
     } catch (error) {
       console.log(error);
-      res.send(error);
+      commonHelper.response(res, null, 500, "Failed updating user")
     }
   },
 
