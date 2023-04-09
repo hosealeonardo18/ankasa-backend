@@ -3,7 +3,7 @@
 		"_postman_id": "a4d3714f-22e1-47b3-8118-a4ab7580ba1d",
 		"name": "Ankasa",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "25234541"
+		"_exporter_id": "26309865"
 	},
 	"item": [
 		{
@@ -70,7 +70,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"hosealeonardo18@gmail.com\",\n    \"password\" : \"tes12345\"\n}",
+							"raw": "{\n    \"email\" : \"alif.anke.bima@gmail.com\",\n    \"password\" : \"password123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -78,9 +78,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/user/login",
+							"raw": "{{API_URL}}/user/login",
 							"host": [
-								"{{localhost}}"
+								"{{API_URL}}"
 							],
 							"path": [
 								"user",
@@ -205,9 +205,8 @@
 							"formdata": [
 								{
 									"key": "fullname",
-									"value": "Alif Anke Baru",
-									"type": "text",
-									"disabled": true
+									"value": "Alif Anke Baru baru",
+									"type": "text"
 								},
 								{
 									"key": "email",
@@ -218,7 +217,7 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/home/alif/Dropbox/Pictures/Pas foto/hitam putih.png"
+									"src": "/home/alif/Unduhan/profile/tokopedia.png"
 								},
 								{
 									"key": "phone_number",
@@ -247,9 +246,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{localhost}}/user/edit/{{id_user}}",
+							"raw": "{{API_URL}}/user/edit/{{id_user}}",
 							"host": [
-								"{{localhost}}"
+								"{{API_URL}}"
 							],
 							"path": [
 								"user",
@@ -326,7 +325,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"superadmin@gmail.com\",\n    \"password\" : \"password123\"\n}",
+							"raw": "{\n    \"email\" : \"admin@gmail.com\",\n    \"password\" : \"password123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -435,31 +434,31 @@
 							}
 						},
 						"url": {
-							"raw": "{{API_URL}}/admin/ab4a06ef-3bb0-405e-8ef6-91627f6408a3",
+							"raw": "{{API_URL}}/admin/{{id_admin}}",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
 								"admin",
-								"ab4a06ef-3bb0-405e-8ef6-91627f6408a3"
+								"{{id_admin}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Delete admin",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/admin/35aa9ff5-6b33-40f4-adae-948d06d0cc4e",
+							"raw": "{{API_URL}}/admin/{{id_admin}}",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
 								"admin",
-								"35aa9ff5-6b33-40f4-adae-948d06d0cc4e"
+								"{{id_admin}}"
 							]
 						}
 					},
@@ -978,23 +977,23 @@
 									"formdata": [
 										{
 											"key": "name",
-											"value": "Sydney",
+											"value": "Semarang",
 											"description": "nama kota",
 											"type": "text"
 										},
 										{
 											"key": "country",
-											"value": "Australia",
+											"value": "Indonesia",
 											"type": "text"
 										},
 										{
 											"key": "image",
 											"type": "file",
-											"src": "/home/alif/Dropbox/Pictures/Profile picture/325298687_628390289046640_906610024568446155_n.jpg"
+											"src": "/home/alif/Unduhan/semarang 1.jpeg"
 										},
 										{
 											"key": "description",
-											"value": "tes deskripsi",
+											"value": "semarang adalah kota di jawa tengah",
 											"type": "text"
 										}
 									]
@@ -1021,22 +1020,22 @@
 									"formdata": [
 										{
 											"key": "name",
-											"value": "Tokyo",
+											"value": "Semarang",
 											"type": "text"
 										},
 										{
 											"key": "country",
-											"value": "Jepang",
+											"value": "Indonesia",
 											"type": "text"
 										},
 										{
 											"key": "image",
 											"type": "file",
-											"src": "/home/alif/Unduhan/Foto_Kota_Tujuan/Yokohama, Jepang.jpg"
+											"src": "/home/alif/Unduhan/semarang 2.jpeg"
 										},
 										{
 											"key": "description",
-											"value": "tes deskripsi update update",
+											"value": "semarang adalah kota di jawa tengah",
 											"type": "text"
 										}
 									]
@@ -1072,6 +1071,36 @@
 							},
 							"response": []
 						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
 					]
 				},
 				{
@@ -1080,7 +1109,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/city?limit=6&sortBy=id&sort=desc&page=2",
+							"raw": "{{API_URL}}/city?sort=desc&search=Semarang",
 							"host": [
 								"{{API_URL}}"
 							],
@@ -1090,11 +1119,13 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "6"
+									"value": "6",
+									"disabled": true
 								},
 								{
 									"key": "sortBy",
-									"value": "id"
+									"value": "id",
+									"disabled": true
 								},
 								{
 									"key": "sort",
@@ -1102,12 +1133,12 @@
 								},
 								{
 									"key": "search",
-									"value": "jepang",
-									"disabled": true
+									"value": "Semarang"
 								},
 								{
 									"key": "page",
-									"value": "2"
+									"value": "2",
+									"disabled": true
 								}
 							]
 						}
@@ -1179,7 +1210,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n      \"fullname\": \"Mandiri\",\r\n      \"credit_number\": \"1234567890123431\",\r\n      \"expire\": \"2027-03-03\",\r\n      \"cvv\": \"123\",\r\n      \"balance\": \"20000000\"\r\n}",
+							"raw": "{\r\n      \"fullname\": \"Mandiri\",\r\n      \"credit_number\": \"1857469843245672\",\r\n      \"expire\": \"2027-03-03\",\r\n      \"cvv\": \"123\",\r\n      \"balance\": \"14700000\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1208,14 +1239,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{API_URL}}/creditCard/preffered/8b81db85-d6de-42fb-9d30-d47e463c22cc",
+							"raw": "{{API_URL}}/creditCard/preffered/{{id_credit_card}}",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
 								"creditCard",
 								"preffered",
-								"8b81db85-d6de-42fb-9d30-d47e463c22cc"
+								"{{id_credit_card}}"
 							]
 						}
 					},
@@ -1254,13 +1285,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{API_URL}}/creditCard/8b81db85-d6de-42fb-9d30-d47e463c22cc",
+							"raw": "{{API_URL}}/creditCard/{{id_credit_card}}",
 							"host": [
 								"{{API_URL}}"
 							],
 							"path": [
 								"creditCard",
-								"8b81db85-d6de-42fb-9d30-d47e463c22cc"
+								"{{id_credit_card}}"
 							]
 						}
 					},
@@ -1433,7 +1464,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"insurance\": true,\n    \"booking_name\": \"tes passenger sedih\",\n    \"email\": \"hosealeonardo18@gmail.com\",\n    \"phone_number\": \"085775849366\",\n    \"title\": 1,\n    \"fullname\": \"Iqbal\",\n    \"nationality\": 1\n}",
+							"raw": "{\n    \"insurance\": true,\n    \"booking_name\": \"tes create booking\",\n    \"email\": \"hosealeonardo18@gmail.com\",\n    \"phone_number\": \"085775849366\",\n    \"title\": 1,\n    \"fullname\": \"Iqbal\",\n    \"nationality\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1678,7 +1709,7 @@
 	"variable": [
 		{
 			"key": "API_URL",
-			"value": "https://ankasa-backend-production.up.railway.app"
+			"value": "https://clear-newt-getup.cyclic.app"
 		},
 		{
 			"key": "user_token",
@@ -1729,13 +1760,12 @@
 			"type": "string"
 		},
 		{
-			"value": "",
-			"type": "string",
-			"disabled": true
-		},
-		{
 			"key": "id_passenger",
 			"value": "f33afcd1-f84a-4f04-ac2b-01bd65c6a087"
+		},
+		{
+			"key": "id_admin",
+			"value": "ab4a06ef-3bb0-405e-8ef6-91627f6408a3"
 		}
 	]
 }
