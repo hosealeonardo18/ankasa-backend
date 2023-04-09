@@ -1,13 +1,122 @@
-# ankasa-backend
-Ankasa-backend is a RESTful API backend for interfacing ankasa relational database and providing API for ankasa frontend,
-ankasa is a website where users can search and buy flight ticket. 
+<br />
+<p align="center">
+  <div align="center">
+    <img height="150" src="./docs/readme/logo.png" alt="ankasa" border="0"/>
+  </div>
+  <h3 align="center">Ankasa App</h3>
+  <p align="center">
+    <a href="https://github.com/preedok/FE-ANKASA"><strong>Explore the docs »</strong></a>
+    <br />
+    <a href="https://insancitaticket.vercel.app/">View Demo</a>
+    ·
+    <a href="https://clear-newt-getup.cyclic.app/">Api Demo</a>
+  </p>
+</p>
 
-This repository also serves as a learning exercise at team collaboration and management.
+## Table of Contents
 
-## Teams members
+---
+
+- [Table of Contents](#table-of-contents)
+- [About The Project](#about-the-project)
+  - [Built With](#built-with)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Setup .env](#setup-env)
+- [Screenshots](#screenshots)
+- [Contributing](#contributing)
+- [Related Project](#related-project)
+- [Contact](#contact)
+
+# About The Project
+
+Tired with your daily life and need a quick vacation to another city and/or country? Worry not, Angkasa will help you find a flight ticket to any popular destination in the world. Start creating an account to buy you and your family a ticket to Bali, you can use a filter to get the cheapest and most comfortable flight there is to maximize your holiday plan. This project was done in a team.
+
+Ankasa-backend is a RESTful API backend for interfacing ankasa relational database and providing API for ankasa frontend.
+
+## Built With
+
+These are the libraries and service used for building this backend API
+
+- [Node.js](https://nodejs.org)
+- [Express](https://expressjs.com)
+- [PostgreSQL](https://www.postgresql.org)
+- [Json Web Token](https://jwt.io)
+- [Multer](https://github.com/expressjs/multer)
+- [Google Cloud Platform](https://cloud.google.com)
+
+# Installation
+
+Follow this steps to run the server locally :
+
+1. Clone this repository
+
+```sh
+git clone https://github.com/alifankebima/ankasa-backend.git
+```
+
+2. Change directory to ankasa-backend
+
+```sh
+cd ankasa-backend
+```
+
+3. Install all of the required modules
+
+```sh
+npm install
+```
+
+4. Create PostgreSQL database, query are provided in [ankasa-database-query.sql](./docs/ankasa-database-query.sql)
+
+5. Create and configure `.env` file in the root directory, example credentials are provided in [.env.example](./.env.example)
+
+```txt
+   - Please note that this server requires Google Drive API credentials and Gmail service account
+   - Otherwise API endpoint with image upload and account register won't work properly
+```
+
+6. Run this command to run the server
+
+```sh
+npm run server
+```
+
+- Or run this command for running in development environment
+
+```sh
+npm run dev
+```
+
+- Run this command for debugging and finding errors
+
+```sh
+npm run lint
+```
+
+## Documentation
+
+Documentation files are provided in the [docs](./docs) folder
+
+- [Postman API colletion](./docs/Ankasa.postman_collection.json)
+- [PostgreSQL database query](./docs/ankasa-database-query.sql)
+- [Database diagram](./docs/ankasa-database-diagram.drawio.png)
+
+## Related Project
+
+:rocket: [`Backend Ankasa`](https://github.com/alifankebima/ankasa-backend)
+
+:rocket: [`Frontend Ankasa`](https://github.com/preedok/FE-ANKASA)
+
+:rocket: [`Demo Ankasa`](https://insancitaticket.vercel.app/)
+
+# Contributors
+
 This backend API is created by 3 backend team members and 1 support member, where each member have different tasks
 
-[@alifankebima (Alif Anke Bima Putra)] : 
+[@alifankebima (Alif Anke Bima Putra)](https://github.com/alifankebima) :
+
 - Relational database design
 - Flights CRUD
 - Booking CRUD
@@ -15,81 +124,77 @@ This backend API is created by 3 backend team members and 1 support member, wher
 - Notification CRUD
 - Postman API documentation
 
-[@rrizalyuniar (R. Rizal Yuniar Sutono)] : 
+[@rrizalyuniar (R. Rizal Yuniar Sutono)](https://github.com/rrizalyuniar) :
+
 - Airline CRUD
 - City CRUD
 - Credit Card CRUD
 - Email verification implementation
 
-[@andkvnt (Andiko Oktavianto)] : 
+[@andkvnt (Andiko Oktavianto)](https://github.com/andkvnt) :
+
 - Reviews CRUD
 - Flights, airlines, and city dummy data
 
-[@iqbalapredo24 (Muhamad Iqbal Aprido)] (Support member) : 
+[@iqbalapredo24 (Muhamad Iqbal Aprido)](https://github.com/preedok) (Support member) :
+
 - Team leader
 - Authentication with JWT
 - Users CRUD
 - Admin CRUD
 - Chat CRUD
 
-## Documentation
-Documentation files are provided in the [docs] folder
-- [Postman API colletion]
-- [PostgreSQL database query]
-- [Database diagram]
+# Meet The Team Members
 
-## Installation
-Follow this steps to run the server :
-1. Clone this repository with `git clone https://github.com/alifankebima/ankasa-backend.git`
-2. Change directory to ankasa-be with `cd ankasa-backend`
-3. Run `npm install` to install all of the required modules
-4. Create PostgreSQL database, query are provided in the [docs] folder
-5. Create and configure `.env` file in the root directory, example are provided in `.env.example`
-6. Run `npm run server` to run the server, or use `npm run dev` for running in development environment
+<center>
+  <table align="center">
+    <tr >
+      <th width="144">Fullstack Developer /<br>Product Manager</th>
+      <th >Backend Developer</th>
+      <th >Backend Developer</th>
+      <th >Backend Developer</th>
+      <th >Frontend Developer</th>
+      <th >Frontend Developer</th>
+    </tr>
+    <tr >
+      <td align="center">
+        <a href="https://github.com/preedok">
+          <img width="200" height="176" src="./docs/readme/iqbal.jpg" alt="Muhamad Iqbal Aprido"><br/>
+          <b style="font-size:12px">Muhamad Iqbal Aprido</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/alifankebima">
+          <img width="200" src="./docs/readme/alif.jpg" alt="Alif Anke Bima Putra"><br/>
+          <b style="font-size:12px">Alif Anke Bima Putra</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/andkvnt">
+          <img width="200" src="./docs/readme/andhiko.jpg" alt="Andiko Oktavianto"><br/>
+          <b style="font-size:12px">Andiko Oktavianto</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/rrizalyuniar">
+          <img width="200" src="./docs/readme/rizal.jpg" alt="R. Rizal Yuniar Sutono"><br/>
+          <b style="font-size:12px">R. Rizal Yuniar Sutono</b>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/hosealeonardo18">
+          <img width="200" src="./docs/readme/hose.jpg" alt="Hosea Leonardo"><br/>
+          <b style="font-size:12px">Hosea Leonardo</b>
+        </a>
+      </td>
+     <td align="center">
+        <a href="https://github.com/RezaldhoArmadhani">
+          <img width="200" src="./docs/readme/aldho.jpg" alt="Rezaldho Armadhani"><br/>
+          <b style="font-size:12px">Rezaldho Armadhani</b>
+        </a>
+      </td>
+    </tr>
+  </table>
+</center>
 
-## Debugging
-Run `npm run lint` for debugging errors in this repository
-
-## List of third-party modules
-| Modules | Description |
-| ------ | ------ |
-| [Express] | Backend framework |
-| [Nodemon] | Restart server on file change |
-| [Morgan] | HTTP request logger |
-| [node-postgres] | PostgresSQL interface library |
-| [Dotenv] | Load environment variables |
-| [CORS] | Enable CORS |
-| [ESLint] | Linter for debugging |
-| [Http-errors] | Create HTTP errors |
-| [Helmet] | Set HTTP headers for security |
-| [XSS-Clean] | Sanitize user input |
-| [Bcryptjs] | Password encryption and salting |
-| [Jsonwebtoken] | Token based user authentication |
-| [Multer] | multipart/form-data handling |
-| [Path] | Directory and file path handling |
-| [UUID] | UUID Generator |
-
-[docs]: <docs>
-[Postman API colletion]: <docs/ankasa-backend.postman_collection.json>
-[PostgreSQL Database Query]: <docs/ankasa-database-query.sql>
-[Database Diagram]: <docs/ankasa-database-diagram.drawio.png>
-[@alifankebima (Alif Anke Bima Putra)]: <https://www.github.com/alifankebima>
-[@rrizalyuniar (R. Rizal Yuniar Sutono)]: <https://github.com/rrizalyuniar>
-[@andkvnt (Andiko Oktavianto)]: <https://www.github.com/andkvnt>
-[@iqbalapredo24 (Muhamad Iqbal Aprido)]: <https://github.com/iqbalapredo24>
-
-[express]: <https://expressjs.com>
-[Nodemon]: <https://nodemon.io/>
-[Morgan]: <https://github.com/expressjs/morgan#readme>
-[node-postgres]: <https://www.npmjs.com/package/pg>
-[Dotenv]: <https://www.npmjs.com/package/dotenv>
-[CORS]: <https://github.com/expressjs/cors#readme>
-[ESLint]: <https://eslint.org>
-[Http-errors]: <https://www.npmjs.com/package/http-errors>
-[Helmet]: <https://helmetjs.github.io/>
-[XSS-Clean]: <https://github.com/jsonmaur/xss-clean>
-[Bcryptjs]: <https://github.com/dcodeIO/bcrypt.js>
-[Jsonwebtoken]: <https://jwt.io/>
-[Multer]: <https://github.com/expressjs/multer>
-[Path]: <https://github.com/jinder/path>
-[UUID]: <https://github.com/uuidjs/uuid>
+Project link : [https://github.com/alifankebima/ankasa-backend](https://github.com/alifankebima/ankasa-backend)

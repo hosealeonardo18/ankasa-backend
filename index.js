@@ -11,7 +11,8 @@ const commonHelper = require("./src/helper/common");
 // Configure express
 app.use(express.json());
 app.use(cors({
-    methods: ["GET", "PUT", "POST", "DELETE"]
+    methods: ["GET", "PUT", "POST", "DELETE"],
+    origin: [`${process.env.NODEMAILER_FRONTEND_URL}`]
 }));
 app.use(morgan("dev"));
 app.use(helmet());
