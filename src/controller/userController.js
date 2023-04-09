@@ -7,7 +7,6 @@ const authHelper = require("../helper/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-var cloudinary = require("../config/cloudinary");
 const googleDrive = require("../config/googleDrive");
 
 // verif
