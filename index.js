@@ -44,5 +44,4 @@ app.use((err, req, res, next) => { // eslint-disable-line
 // Start server
 app.listen(port, () => {
     console.log(`Server internal port : ${port}`);
-    console.log(`Server public URL : ${process.env.RAILWAY_STATIC_URL}`)
 });
