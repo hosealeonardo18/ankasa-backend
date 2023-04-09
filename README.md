@@ -26,7 +26,7 @@
 
 # About The Project
 
-Tired with your daily life and need a quick vacation to another city and/or country? Worry not, Angkasa will help you find a flight ticket to any popular destination in the world. Start creating an account to buy you and your family a ticket to Bali, you can use a filter to get the cheapest and most comfortable flight there is to maximize your holiday plan. This project was done in a team.
+Tired with your daily life and need a quick vacation to another city and / or country? Worry not, Ankasa will help you find a flight ticket to any popular destination in the world. Start creating an account to buy you and your family a ticket to Bali, you can use a filter to get the cheapest and most comfortable flight there is to maximize your holiday plan. This project was done in a team.
 
 Ankasa-backend is a RESTful API backend for interfacing ankasa relational database and providing API for ankasa frontend.
 
@@ -100,9 +100,9 @@ Documentation files are provided in the [docs](./docs) folder
 
 ## Related Project
 
-:rocket: [`Backend Ankasa`](https://github.com/alifankebima/ankasa-backend)
-
 :rocket: [`Frontend Ankasa`](https://github.com/preedok/FE-ANKASA)
+
+:rocket: [`Backend Ankasa`](https://github.com/alifankebima/ankasa-backend)
 
 :rocket: [`Demo Ankasa`](https://insancitaticket.vercel.app/)
 
@@ -131,7 +131,7 @@ This backend API is created by 3 backend team members and 1 support member, wher
 - Reviews CRUD
 - Flights, airlines, and city dummy data
 
-[@iqbalapredo24 (Muhamad Iqbal Aprido)](https://github.com/preedok) (Support member) :
+[@preedok (Muhamad Iqbal Aprido)](https://github.com/preedok) (Support member) :
 
 - Team leader
 - Authentication with JWT
@@ -172,8 +172,8 @@ This backend API is created by 3 backend team members and 1 support member, wher
       </td>
       <td align="center">
         <a href="https://github.com/rrizalyuniar">
-          <img width="200" src="./docs/readme/rizal.jpg" alt="R. Rizal Yuniar Sutono"><br/>
-          <b style="font-size:12px">R. Rizal Yuniar Sutono</b>
+          <img width="200" src="./docs/readme/rizal.jpg" alt="R. Rizal Yuniar S."><br/>
+          <b style="font-size:12px">R. Rizal Yuniar S.</b>
         </a>
       </td>
       <td align="center">
