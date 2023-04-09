@@ -68,8 +68,8 @@ npm install
 5. Create and configure `.env` file in the root directory, example credentials are provided in [.env.example](./.env.example)
 
 ```txt
-   - Please note that this server requires Google Drive API credentials and Gmail service account
-   - Otherwise API endpoint with image upload and account register won't work properly
+- Please note that this server requires Google Drive API credentials and Gmail service account
+- Otherwise API endpoint with image upload and account register won't work properly
 ```
 
 6. Run this command to run the server
@@ -144,7 +144,7 @@ This backend API is created by 3 backend team members and 1 support member, wher
 <center>
   <table align="center">
     <tr >
-      <th width="144">Fullstack Developer / Product Manager</th>
+      <th >Fullstack Developer / Product Manager</th>
       <th >Backend Developer</th>
       <th >Backend Developer</th>
       <th >Backend Developer</th>
