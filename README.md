@@ -5,7 +5,7 @@
   </div>
   <h3 align="center">Ankasa App</h3>
   <p align="center">
-    <a href="https://github.com/preedok/FE-ANKASA"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/alifankebima/ankasa-backend"><strong>Explore the docs »</strong></a>
     <br />
     <a href="https://insancitaticket.vercel.app/">View Demo</a>
     ·
@@ -15,19 +15,14 @@
 
 ## Table of Contents
 
----
-
 - [Table of Contents](#table-of-contents)
 - [About The Project](#about-the-project)
   - [Built With](#built-with)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Setup .env](#setup-env)
-- [Screenshots](#screenshots)
-- [Contributing](#contributing)
-- [Related Project](#related-project)
-- [Contact](#contact)
+- [Installation](#installation)
+  - [Documentation](#documentation)
+  - [Related Project](#related-project)
+- [Contributors](#contributors)
+  - [Meet The Team Members](#meet-the-team-members)
 
 # About The Project
 
@@ -144,12 +139,12 @@ This backend API is created by 3 backend team members and 1 support member, wher
 - Admin CRUD
 - Chat CRUD
 
-# Meet The Team Members
+## Meet The Team Members
 
 <center>
   <table align="center">
     <tr >
-      <th width="144">Fullstack Developer /<br>Product Manager</th>
+      <th width="144">Fullstack Developer / Product Manager</th>
       <th >Backend Developer</th>
       <th >Backend Developer</th>
       <th >Backend Developer</th>
@@ -159,7 +154,7 @@ This backend API is created by 3 backend team members and 1 support member, wher
     <tr >
       <td align="center">
         <a href="https://github.com/preedok">
-          <img width="200" height="176" src="./docs/readme/iqbal.jpg" alt="Muhamad Iqbal Aprido"><br/>
+          <img width="200" src="./docs/readme/iqbal.jpg" alt="Muhamad Iqbal Aprido"><br/>
           <b style="font-size:12px">Muhamad Iqbal Aprido</b>
         </a>
       </td>
