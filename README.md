@@ -98,6 +98,10 @@ Documentation files are provided in the [docs](./docs) folder
 - [PostgreSQL database query](./docs/ankasa-database-query.sql)
 - [Database diagram](./docs/ankasa-database-diagram.drawio.png)
 
+API endpoint list are also available as published postman documentation
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/26309865/2s93RTQXQB)
+
 ## Related Project
 
 :rocket: [`Frontend Ankasa`](https://github.com/preedok/FE-ANKASA)
