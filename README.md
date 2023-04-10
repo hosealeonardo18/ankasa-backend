@@ -28,8 +28,6 @@
 
 Tired with your daily life and need a quick vacation to another city and / or country? Worry not, Ankasa will help you find a flight ticket to any popular destination in the world. Start creating an account to buy you and your family a ticket to Bali, you can use a filter to get the cheapest and most comfortable flight there is to maximize your holiday plan. This project was done in a team.
 
-Ankasa-backend is a RESTful API backend for interfacing ankasa relational database and providing API for ankasa frontend.
-
 ## Built With
 
 These are the libraries and service used for building this backend API
