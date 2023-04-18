@@ -7,7 +7,7 @@
   <p align="center">
     <a href="https://github.com/alifankebima/ankasa-backend"><strong>Explore the docs »</strong></a>
     <br />
-    <a href="https://insancitaticket.vercel.app/">View Demo</a>
+    <a href="https://ankasa2023.vercel.app/">View Demo</a>
     ·
     <a href="https://clear-newt-getup.cyclic.app/">Api Demo</a>
   </p>
@@ -106,7 +106,7 @@ API endpoint list are also available as published postman documentation
 
 :rocket: [`Backend Ankasa`](https://github.com/alifankebima/ankasa-backend)
 
-:rocket: [`Demo Ankasa`](https://insancitaticket.vercel.app/)
+:rocket: [`Demo Ankasa`](https://ankasa2023.vercel.app/)
 
 # Contributors
 
