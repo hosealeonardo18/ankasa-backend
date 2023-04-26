@@ -5,7 +5,7 @@
   </div>
   <h3 align="center">Ankasa App</h3>
   <p align="center">
-    <a href="https://github.com/alifankebima/ankasa-backend"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/hosealeonardo18/ankasa-backend"><strong>Explore the docs »</strong></a>
     <br />
     <a href="https://ankasa2023.vercel.app/">View Demo</a>
     ·
@@ -102,9 +102,9 @@ API endpoint list are also available as published postman documentation
 
 ## Related Project
 
-:rocket: [`Frontend Ankasa`](https://github.com/preedok/FE-ANKASA)
+:rocket: [`Frontend Ankasa`](https://github.com/hosealeonardo18/FE-ANKASA)
 
-:rocket: [`Backend Ankasa`](https://github.com/alifankebima/ankasa-backend)
+:rocket: [`Backend Ankasa`](https://github.com/hosealeonardo18/ankasa-backend)
 
 :rocket: [`Demo Ankasa`](https://ankasa2023.vercel.app/)
 
