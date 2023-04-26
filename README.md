@@ -46,7 +46,7 @@ Follow this steps to run the server locally :
 1. Clone this repository
 
 ```sh
-git clone https://github.com/alifankebima/ankasa-backend.git
+git clone https://github.com/hosealeonardo18/ankasa-backend
 ```
 
 2. Change directory to ankasa-backend
@@ -194,4 +194,4 @@ This backend API is created by 3 backend team members and 1 support member, wher
   </table>
 </center>
 
-Project link : [https://github.com/alifankebima/ankasa-backend](https://github.com/alifankebima/ankasa-backend)
+Project link : [https://github.com/hosealeonardo18/ankasa-backend](https://github.com/hosealeonardo18/ankasa-backend)
